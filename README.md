@@ -1,5 +1,5 @@
 # SmartHotel
-ssm-hotel-management
+ssm-hotel-management，follow[蓝迪酒店租房系统](https://github.com/yaochenkun/landi)
 
 ### 登录帐密
 财务部001 123456
