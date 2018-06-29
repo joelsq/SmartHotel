@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.smart.dao.SourcesMapper">
+	<resultMap id="BaseResultMap" type="team.smart.model.Sources">
+		<id column="ID" property="ID" jdbcType="INTEGER" />
+		<result column="ROOM_NUMBER" property="ROOM_NUMBER" jdbcType="VARCHAR" />
+		<result column="GUEST_NAME" property="GUEST_NAME" jdbcType="VARCHAR" />
+		<result column="TYPE" property="TYPE" jdbcType="VARCHAR" />
+		<result column="METER" property="METER" jdbcType="VARCHAR" />
+		<result column="CUR_MONTH_VAL" property="CUR_MONTH_VAL"
+			jdbcType="DOUBLE" />
+		<result column="MONEY" property="MONEY" jdbcType="DOUBLE" />
+		<result column="UPDATE_TIME" property="UPDATE_TIME" jdbcType="TIMESTAMP" />
+		<result column="READING_TIME" property="READING_TIME" jdbcType="TIMESTAMP" />
+		<result column="MONTH" property="MONTH" jdbcType="INTEGER" />
+		<result column="SYS_STATE" property="SYS_STATE" jdbcType="INTEGER" />
+		<result column="LOG" property="LOG" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ROOM_NUMBER, GUEST_NAME, TYPE, METER, CUR_MONTH_VAL, MONEY,
+		UPDATE_TIME, READING_TIME,
+		MONTH, SYS_STATE, LOG
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ID = #{ID,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sources
+		where ID = #{ID,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="team.smart.model.Sources">
+		insert into sources (ID, ROOM_NUMBER, GUEST_NAME,
+		TYPE, METER, CUR_MONTH_VAL,
+		MONEY, UPDATE_TIME, READING_TIME,
+		MONTH, SYS_STATE, LOG
+		)
+		values (#{ID,jdbcType=INTEGER}, #{ROOM_NUMBER,jdbcType=VARCHAR},
+		#{GUEST_NAME,jdbcType=VARCHAR},
+		#{TYPE,jdbcType=VARCHAR}, #{METER,jdbcType=VARCHAR}, #{CUR_MONTH_VAL,jdbcType=DOUBLE},
+		#{MONEY,jdbcType=DOUBLE}, #{UPDATE_TIME,jdbcType=TIMESTAMP},
+		#{READING_TIME,jdbcType=TIMESTAMP},
+		#{MONTH,jdbcType=INTEGER}, #{SYS_STATE,jdbcType=INTEGER}, #{LOG,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="team.smart.model.Sources">
+		insert into sources
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				ID,
+			</if>
+			<if test="ROOM_NUMBER != null">
+				ROOM_NUMBER,
+			</if>
+			<if test="GUEST_NAME != null">
+				GUEST_NAME,
+			</if>
+			<if test="TYPE != null">
+				TYPE,
+			</if>
+			<if test="METER != null">
+				METER,
+			</if>
+			<if test="CUR_MONTH_VAL != null">
+				CUR_MONTH_VAL,
+			</if>
+			<if test="MONEY != null">
+				MONEY,
+			</if>
+			<if test="UPDATE_TIME != null">
+				UPDATE_TIME,
+			</if>
+			<if test="READING_TIME != null">
+				READING_TIME,
+			</if>
+			<if test="MONTH != null">
+				MONTH,
+			</if>
+			<if test="SYS_STATE != null">
+				SYS_STATE,
+			</if>
+			<if test="LOG != null">
+				LOG,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				#{ID,jdbcType=INTEGER},
+			</if>
+			<if test="ROOM_NUMBER != null">
+				#{ROOM_NUMBER,jdbcType=VARCHAR},
+			</if>
+			<if test="GUEST_NAME != null">
+				#{GUEST_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="TYPE != null">
+				#{TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="METER != null">
+				#{METER,jdbcType=VARCHAR},
+			</if>
+			<if test="CUR_MONTH_VAL != null">
+				#{CUR_MONTH_VAL,jdbcType=DOUBLE},
+			</if>
+			<if test="MONEY != null">
+				#{MONEY,jdbcType=DOUBLE},
+			</if>
+			<if test="UPDATE_TIME != null">
+				#{UPDATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="READING_TIME != null">
+				#{READING_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="MONTH != null">
+				#{MONTH,jdbcType=INTEGER},
+			</if>
+			<if test="SYS_STATE != null">
+				#{SYS_STATE,jdbcType=INTEGER},
+			</if>
+			<if test="LOG != null">
+				#{LOG,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="team.smart.model.Sources">
+		update sources
+		<set>
+			<if test="ROOM_NUMBER != null">
+				ROOM_NUMBER = #{ROOM_NUMBER,jdbcType=VARCHAR},
+			</if>
+			<if test="GUEST_NAME != null">
+				GUEST_NAME = #{GUEST_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="TYPE != null">
+				TYPE = #{TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="METER != null">
+				METER = #{METER,jdbcType=VARCHAR},
+			</if>
+			<if test="CUR_MONTH_VAL != null">
+				CUR_MONTH_VAL = #{CUR_MONTH_VAL,jdbcType=DOUBLE},
+			</if>
+			<if test="MONEY != null">
+				MONEY = #{MONEY,jdbcType=DOUBLE},
+			</if>
+			<if test="UPDATE_TIME != null">
+				UPDATE_TIME = #{UPDATE_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="READING_TIME != null">
+				READING_TIME = #{READING_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="MONTH != null">
+				MONTH = #{MONTH,jdbcType=INTEGER},
+			</if>
+			<if test="SYS_STATE != null">
+				SYS_STATE = #{SYS_STATE,jdbcType=INTEGER},
+			</if>
+			<if test="LOG != null">
+				LOG = #{LOG,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{ID,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="team.smart.model.Sources">
+		update sources
+		set ROOM_NUMBER = #{ROOM_NUMBER,jdbcType=VARCHAR},
+		GUEST_NAME = #{GUEST_NAME,jdbcType=VARCHAR},
+		TYPE = #{TYPE,jdbcType=VARCHAR},
+		METER = #{METER,jdbcType=VARCHAR},
+		CUR_MONTH_VAL = #{CUR_MONTH_VAL,jdbcType=DOUBLE},
+		MONEY = #{MONEY,jdbcType=DOUBLE},
+		UPDATE_TIME = #{UPDATE_TIME,jdbcType=TIMESTAMP},
+		READING_TIME = #{READING_TIME,jdbcType=TIMESTAMP},
+		MONTH = #{MONTH,jdbcType=INTEGER},
+		SYS_STATE = #{SYS_STATE,jdbcType=INTEGER},
+		LOG = #{LOG,jdbcType=VARCHAR}
+		where ID = #{ID,jdbcType=INTEGER}
+	</update>
+	<select id="getTotalRow" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*)
+		from sources
+		where ROOM_NUMBER like CONCAT('%', #{RN}, '%') and TYPE = #{TYPE} and
+		SYS_STATE = 1
+	</select>
+	<select id="getExactTotalRow" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*)
+		from sources
+		where ROOM_NUMBER = #{RN} and TYPE = #{TYPE} and SYS_STATE = 1
+	</select>
+	<select id="getSourcesRange" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ROOM_NUMBER like CONCAT('%', #{RN}, '%') and TYPE = #{TYPE} and
+		SYS_STATE = 1
+		order by ID
+		limit #{ST}, #{EACH}
+	</select>
+	<select id="getExactSourcesRange" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ROOM_NUMBER = #{RN} and TYPE = #{TYPE} and SYS_STATE = 1
+		order by ID
+		limit #{ST}, #{EACH}
+	</select>
+	<select id="getSources" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ROOM_NUMBER = #{ROOM_NUMBER} and TYPE = #{TYPE,jdbcType=VARCHAR} and
+		SYS_STATE = 1
+		order by ID desc
+		limit 0, 1
+	</select>
+	<select id="getGasSources" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ROOM_NUMBER = #{ROOM_NUMBER} and TYPE = #{TYPE,jdbcType=VARCHAR} and
+		SYS_STATE = 1 and METER = #{METER}
+		order by ID desc
+		limit 0, 1
+	</select>
+	<select id="getSingleSources" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ROOM_NUMBER = #{ROOM_NUMBER} and METER = #{METER,jdbcType=VARCHAR}
+		and SYS_STATE = 1
+		order by ID desc
+		limit 0, 1
+	</select>
+	<select id="getLookupSource" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from sources
+		where ROOM_NUMBER = #{ROOM_NUMBER} and TYPE = #{TYPE}
+		<if test="GUEST != null">
+			and SYS_STATE = 1 and GUEST_NAME = #{GUEST}
+		</if>
+	</select>
+</mapper>

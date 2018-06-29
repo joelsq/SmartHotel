@@ -1,0 +1,1328 @@
+/*
+SQLyog Ultimate v12.4.1 (64 bit)
+MySQL - 5.7.20-log : Database - smarthotel
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`smarthotel` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `smarthotel`;
+
+/*Table structure for table `agent_purchase` */
+
+DROP TABLE IF EXISTS `agent_purchase`;
+
+CREATE TABLE `agent_purchase` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `GOOD_NAME` VARCHAR(64) DEFAULT NULL COMMENT '代购物品名称',
+  `COUNT` INT(11) DEFAULT NULL,
+  `COVER_PRICE` DOUBLE DEFAULT NULL COMMENT '垫付费',
+  `SERVICE_PRICE` DOUBLE DEFAULT NULL COMMENT '服务费',
+  `PAY_MODE` TINYINT(3) DEFAULT NULL COMMENT '支付方式（现金0 月结1）',
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `STAFF_ID` INT(11) DEFAULT NULL COMMENT '垫付人ID(就是一个员工staff)',
+  `STAFF_NAME` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `agent_purchase` */
+
+INSERT  INTO `agent_purchase`(`ID`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`GOOD_NAME`,`COUNT`,`COVER_PRICE`,`SERVICE_PRICE`,`PAY_MODE`,`COMMENT`,`STAFF_ID`,`STAFF_NAME`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(2,'W33-2',54,'Ada','无',1,1,1,0,'无21',4,'andrew','2018-06-12 00:00:00','2018-06-12 20:28:33','2018-06-12 20:44:18'),
+(3,'W33-2',54,'Ada','无',1,11,21,1,'无1',0,'请选择','2018-06-16 00:00:00','2018-06-12 20:34:08','2018-06-12 20:43:30'),
+(4,'W33-2',54,'Ada','无',0,0,0,0,'无sdfasdf',0,'请选择','2018-06-12 00:00:00','2018-06-12 20:45:50','2018-06-12 20:45:50'),
+(5,'W11-1',49,'Ada5','无',0,0,0,1,'无',0,'请选择','2018-06-12 00:00:00','2018-06-12 21:53:48','2018-06-12 21:53:48'),
+(6,'W7-3',50,'测试','无',0,0,0,0,'无',0,'请选择','2018-06-12 00:00:00','2018-06-12 21:54:28','2018-06-12 21:54:28'),
+(7,'W33-2',54,'Ada','无',0,0,0,0,'无',0,'请选择','2018-06-11 00:00:00','2018-06-12 21:57:32','2018-06-12 21:57:32'),
+(8,'W11-1',49,'Ada5','无',0,0,0,0,'无',11,'test','2018-06-14 00:00:00','2018-06-14 12:08:51','2018-06-14 12:09:01');
+
+/*Table structure for table `contract_income` */
+
+DROP TABLE IF EXISTS `contract_income`;
+
+CREATE TABLE `contract_income` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `TIME` DATE DEFAULT NULL,
+  `RECEIVE` DOUBLE DEFAULT '0',
+  `PAY` DOUBLE DEFAULT '0',
+  `BENIFIT` DOUBLE DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `contract_income` */
+
+/*Table structure for table `cost_le` */
+
+DROP TABLE IF EXISTS `cost_le`;
+
+CREATE TABLE `cost_le` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `PROJECT` VARCHAR(64) DEFAULT NULL,
+  `CUSTOMER_SERVICE_STAFF` VARCHAR(64) DEFAULT NULL,
+  `OPERATION_STAFF` VARCHAR(64) DEFAULT NULL,
+  `REASON` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `COST` DOUBLE DEFAULT '0',
+  `TYPE` VARCHAR(64) DEFAULT NULL COMMENT '表示福利费，还是安抚费 ',
+  `STATE` INT(3) DEFAULT NULL COMMENT '1 表示数据有效，0 表示数据无效',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+/*Data for the table `cost_le` */
+
+INSERT  INTO `cost_le`(`ID`,`ROOM_NUM`,`GUEST_NAME`,`PROJECT`,`CUSTOMER_SERVICE_STAFF`,`OPERATION_STAFF`,`REASON`,`OCCUR_TIME`,`COST`,`TYPE`,`STATE`) VALUES 
+(12,'W33-3','Ada','','','','','2018-06-05 14:42:40',0,'welfare',1),
+(13,'W33-3','Ada','','','','','2018-06-05 14:43:40',0,'appease',1),
+(14,'W33-3','Ada','','','','','2018-06-05 14:45:32',0,'welfare',1),
+(15,'W33-2','Ada','','','','','2018-06-05 14:55:12',0,'welfare',1),
+(16,'W24-1','Ada','','','','','2018-06-05 14:42:40',0,'welfare',1),
+(17,'W33-2','Ada','','','','','2018-06-28 22:52:53',2,'welfare',1),
+(18,'W33-2','Ada','','','','','2018-06-28 22:52:56',3,'welfare',1);
+
+/*Table structure for table `daily_service` */
+
+DROP TABLE IF EXISTS `daily_service`;
+
+CREATE TABLE `daily_service` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `TYPE` INT(11) DEFAULT NULL,
+  `ROOM_NUMBER` VARCHAR(64) NOT NULL,
+  `GUEST_ID` INT(11) NOT NULL,
+  `GUEST_NAME` VARCHAR(64) NOT NULL,
+  `ITEM` VARCHAR(64) DEFAULT NULL,
+  `COUNT` INT(11) DEFAULT NULL,
+  `MONEY` DOUBLE DEFAULT NULL,
+  `COMMENT` VARCHAR(128) DEFAULT NULL,
+  `RTIME` DATETIME DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `daily_service` */
+
+/*Table structure for table `diary_reminder` */
+
+DROP TABLE IF EXISTS `diary_reminder`;
+
+CREATE TABLE `diary_reminder` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `USER_ID` INT(64) DEFAULT NULL,
+  `TITLE` VARCHAR(200) DEFAULT NULL,
+  `CONTENT` VARCHAR(1000) DEFAULT NULL,
+  `REMIND_DATE` DATE DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  `STATE` VARCHAR(10) DEFAULT NULL COMMENT '完成情况（完成、未完成）',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Data for the table `diary_reminder` */
+
+INSERT  INTO `diary_reminder`(`ID`,`USER_ID`,`TITLE`,`CONTENT`,`REMIND_DATE`,`EDIT_TIME`,`STATE`) VALUES 
+(2,2,'订水','记得明天给20-8房间的人订桶水','2017-06-08','2017-06-15 16:50:41','完成');
+
+/*Table structure for table `drinking_water` */
+
+DROP TABLE IF EXISTS `drinking_water`;
+
+CREATE TABLE `drinking_water` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `BARREL_COUNT` INT(11) DEFAULT '0' COMMENT '桶装水数量',
+  `BARREL_REMAINCOUNT` INT(11) DEFAULT '0',
+  `BARREL_LIMITCOUNT` INT(11) DEFAULT NULL COMMENT '桶装水限额',
+  `BARREL_UNITPRICE` DOUBLE DEFAULT '0',
+  `BOTTLE_COUNT` INT(11) DEFAULT '0' COMMENT '瓶装矿泉水（提）数量',
+  `BOTTLE_REMAINCOUNT` INT(11) DEFAULT NULL,
+  `BOTTLE_LIMITCOUNT` INT(11) DEFAULT NULL COMMENT '瓶装矿泉水（提）限额',
+  `BOTTLE_UNITPRICE` DOUBLE DEFAULT NULL,
+  `EXCESS_PRICE` DOUBLE DEFAULT NULL COMMENT '超出限额数量的总金额',
+  `PAY_MODE` TINYINT(3) DEFAULT NULL COMMENT '支付方式（现金0 月结1）',
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `STAFF_ID` INT(11) DEFAULT NULL,
+  `STAFF_NAME` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `drinking_water` */
+
+INSERT  INTO `drinking_water`(`ID`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`BARREL_COUNT`,`BARREL_REMAINCOUNT`,`BARREL_LIMITCOUNT`,`BARREL_UNITPRICE`,`BOTTLE_COUNT`,`BOTTLE_REMAINCOUNT`,`BOTTLE_LIMITCOUNT`,`BOTTLE_UNITPRICE`,`EXCESS_PRICE`,`PAY_MODE`,`COMMENT`,`STAFF_ID`,`STAFF_NAME`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,'W11-1',49,'Ada5',0,0,0,10,3,-3,0,2,6,1,'',NULL,NULL,'2017-05-27 00:00:00','2017-05-27 10:58:43','2017-05-27 10:59:37'),
+(2,'W33-3',1,'Ada',0,0,0,10,2,-2,0,32,64,0,'haha',NULL,NULL,'2017-05-27 00:00:00','2017-05-27 11:00:14','2017-05-27 11:00:14'),
+(3,'W11-1',49,'Ada5',4,-4,0,10,0,-3,0,0,46,0,'',NULL,NULL,'2017-05-27 00:00:00','2017-05-27 11:00:43','2017-05-27 11:00:43'),
+(4,'W33-3',1,'Ada',123,-123,0,10,0,-2,0,0,1294,0,'',NULL,NULL,'2017-06-12 00:00:00','2017-06-12 22:17:45','2017-06-12 22:17:45'),
+(5,'W33-3',105,'Ada',1,0,1,10,0,1,1,0,0,0,'2',NULL,NULL,'2017-10-24 00:00:00','2017-10-24 10:24:25','2017-10-24 10:24:25'),
+(6,'W33-3',105,'Ada',1,-1,1,10,0,1,1,0,10,0,'2',NULL,NULL,'2017-10-24 00:00:00','2017-10-24 10:24:28','2017-10-24 10:24:28'),
+(7,'W33-3',105,'Ada',1,-2,1,10,0,1,1,0,20,0,'2',NULL,NULL,'2017-10-24 00:00:00','2017-10-24 10:24:30','2017-10-24 10:24:30'),
+(8,'W33-3',105,'Ada',1,-3,1,10,0,1,1,0,30,0,'2',NULL,NULL,'2017-10-24 00:00:00','2017-10-24 10:24:33','2017-10-24 10:24:33'),
+(9,'W33-3',105,'Ada',1,-4,1,10,0,1,1,0,40,0,'2',NULL,NULL,'2017-10-24 00:00:00','2017-10-24 10:24:36','2017-10-24 10:24:36'),
+(10,'W33-3',105,'Ada',1,-5,1,10,0,1,1,0,50,0,'2',NULL,NULL,'2017-10-24 00:00:00','2017-10-24 10:24:39','2017-10-24 10:24:39');
+
+/*Table structure for table `emergency_problem` */
+
+DROP TABLE IF EXISTS `emergency_problem`;
+
+CREATE TABLE `emergency_problem` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(255) DEFAULT NULL,
+  `ROOM_STATE` VARCHAR(255) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(255) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `ATTENDANCE_TIME` DATETIME DEFAULT NULL,
+  `DECLARANT` VARCHAR(15) DEFAULT NULL COMMENT '申请人',
+  `DEALING` VARCHAR(15) DEFAULT NULL COMMENT '处理人',
+  `DAMAGE_DETAIL` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+/*Data for the table `emergency_problem` */
+
+INSERT  INTO `emergency_problem`(`ID`,`ROOM_NUM`,`ROOM_STATE`,`GUEST_NAME`,`OCCUR_TIME`,`ATTENDANCE_TIME`,`DECLARANT`,`DEALING`,`DAMAGE_DETAIL`) VALUES 
+(1,'W2-1','已入住','Tom','2017-12-19 21:07:00','2017-12-19 21:07:00','','张三',',,,目击人:false,备注:sdf'),
+(2,'W2-1','已入住','Tom','2017-12-19 21:07:00','2017-12-19 21:07:00','','张三','报修:报修;true;,,,目击人:false,备注:备注'),
+(3,'W2-1','已入住','Tom','2017-12-19 21:07:00','2017-12-19 21:07:00','','张三',',人员:false;,,目击人:false,备注:备注'),
+(4,'W2-1','已入住','Tom','2017-01-01 01:01:00','2017-01-01 01:01:00','','zhangg','报修:qwe;true;q2we,人员:true;qw;qw;ew;wq;true;qwe,,,备注:'),
+(5,'W2-1','已入住','Tom','2017-12-19 21:07:00','2017-12-19 21:07:00','test','zhangdan','报修:wer;true;werw,,,,备注:er');
+
+/*Table structure for table `fac_sta` */
+
+DROP TABLE IF EXISTS `fac_sta`;
+
+CREATE TABLE `fac_sta` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `TYPE` VARCHAR(64) DEFAULT NULL,
+  `CAT` VARCHAR(64) DEFAULT NULL,
+  `BRAND` VARCHAR(64) DEFAULT NULL,
+  `NAME` VARCHAR(64) DEFAULT NULL,
+  `OWNER` VARCHAR(64) DEFAULT NULL COMMENT '归属权',
+  `REPO_ID` INT(11) DEFAULT NULL,
+  `REPO_NUM` VARCHAR(64) DEFAULT NULL COMMENT '库房号码',
+  `TOTAL` INT(11) DEFAULT NULL,
+  `FREE` INT(11) DEFAULT NULL COMMENT '待分配',
+  `WORKING` INT(11) DEFAULT NULL COMMENT '可用',
+  `MAINTAIN` INT(11) DEFAULT NULL COMMENT '维修',
+  `BAD` INT(11) DEFAULT NULL COMMENT '报废',
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8;
+
+/*Data for the table `fac_sta` */
+
+INSERT  INTO `fac_sta`(`ID`,`TYPE`,`CAT`,`BRAND`,`NAME`,`OWNER`,`REPO_ID`,`REPO_NUM`,`TOTAL`,`FREE`,`WORKING`,`MAINTAIN`,`BAD`,`COMMENT`) VALUES 
+(78,'家电','空调','海尔','GT双开门冰箱','LE固定资产',NULL,'R3-2',7,0,5,2,0,'无'),
+(79,'家电','电视','格力','GT双开门冰箱','LE固定资产',NULL,'R8-8',0,0,0,0,0,'无'),
+(80,'家电','空调','海尔','GT双开门冰箱','LE固定资产',NULL,'R8-8',0,0,0,0,0,'无'),
+(85,'家电','空调','海尔','GT双开门冰箱','LE固定资产',NULL,'R5-6',1,1,0,0,0,'无'),
+(86,'家电','空调','海尔','GT双开门冰箱','LE管理资产(SPC)',NULL,'R7-8',3,3,0,0,0,'无'),
+(87,'家电','空调','海尔','GT双开门冰箱','LE固定资产',NULL,'R1-1',5,5,0,0,0,'无'),
+(88,'家电','空调','海尔','GT双开门冰箱','LE固定资产',NULL,'R7-8',1,1,0,0,0,'无'),
+(89,'家具','沙发','皇朝','GT双开门冰箱','LE固定资产',NULL,'R3-2',7,0,7,0,0,'无'),
+(90,'备品','床单','多喜爱','床单','LE管理资产(小业主)',NULL,'R3-2',7,0,3,4,0,'无'),
+(91,'备品','床单','多喜爱','多喜爱床单','LE管理资产(SPC)',NULL,'R8-8',10,5,2,2,1,'无');
+
+/*Table structure for table `flight_picking` */
+
+DROP TABLE IF EXISTS `flight_picking`;
+
+CREATE TABLE `flight_picking` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `TIME` DATE DEFAULT NULL,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `TYPE` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'welcome：接机  farewell：送机',
+  `FLIGHT_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `PLATE_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `PICKER_NAME` VARCHAR(64) DEFAULT NULL,
+  `PICKER_TELE` VARCHAR(64) DEFAULT NULL,
+  `CONTACT_NAME` VARCHAR(64) DEFAULT NULL,
+  `CONTACT_TELE` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+
+/*Data for the table `flight_picking` */
+
+INSERT  INTO `flight_picking`(`ID`,`TIME`,`ROOM_NUMBER`,`GUEST_NAME`,`TYPE`,`FLIGHT_NUMBER`,`PLATE_NUMBER`,`PICKER_NAME`,`PICKER_TELE`,`CONTACT_NAME`,`CONTACT_TELE`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,'2017-04-28','W31-3','客人1','welcome','ZXY-3091','粤XXXXX','ken','13980823993','tom','15122707970',NULL,NULL,NULL),
+(2,'2017-05-19','W35-1','Alice','farewell','CA1344','S12345','Tom','13980823993','Bob','84523892','2017-05-19 00:00:00',NULL,'2017-05-13 14:39:25'),
+(4,'2017-05-12','W35-1','Alice','farewell','CA1344','S12345','Tom','13980823993','Bob','12345678910','2017-05-12 00:00:00','2017-05-12 16:51:52','2017-05-12 16:51:52'),
+(5,'2017-05-12','W22-2','Ken','farewell','CA1344','S12345','Tom','13980823993','Bob','12345678910','2017-05-12 00:00:00','2017-05-12 18:13:42','2017-05-12 22:01:32'),
+(61,'2017-05-19','W35-1','Alice','welcome','CA1344','S12345','Tom','12345678910','Bob','12345678910','2017-05-19 00:00:00','2017-05-13 14:38:57','2017-05-13 14:39:50'),
+(63,'2017-05-12','W35-1','Alice','welcome','CA1344','S12345','Tom','12345678910','Bob','12345678910','2017-05-12 00:00:00','2017-05-16 11:56:33','2017-05-16 11:56:33'),
+(69,'2017-05-16','W33-2','Ada','farewell','','','','1','','2','2017-05-16 00:00:00','2017-05-16 16:12:43','2017-05-16 16:14:39');
+
+/*Table structure for table `grocery_item` */
+
+DROP TABLE IF EXISTS `grocery_item`;
+
+CREATE TABLE `grocery_item` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(64) DEFAULT NULL,
+  `TYPE` VARCHAR(64) DEFAULT NULL,
+  `CAT` VARCHAR(64) DEFAULT NULL,
+  `TOTAL` INT(11) DEFAULT '0',
+  `TOTAL_LOSS` INT(11) DEFAULT '0',
+  `TOTAL_SOLD` INT(11) DEFAULT '0',
+  `TOTAL_BENIFIT` DOUBLE DEFAULT '0',
+  `AVALIABLE` INT(11) DEFAULT '0',
+  `BUY_MONEY` DOUBLE DEFAULT NULL,
+  `SELL_MONEY` DOUBLE DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `NAME` (`NAME`)
+) ENGINE=INNODB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+
+/*Data for the table `grocery_item` */
+
+INSERT  INTO `grocery_item`(`ID`,`NAME`,`TYPE`,`CAT`,`TOTAL`,`TOTAL_LOSS`,`TOTAL_SOLD`,`TOTAL_BENIFIT`,`AVALIABLE`,`BUY_MONEY`,`SELL_MONEY`) VALUES 
+(12,'汇源果汁2','饮料','果汁',62,4,27,14,31,10,12),
+(13,'汇源果汁','饮料','果汁',50,0,0,0,50,10,12),
+(16,'怡宝','饮料','纯净水',50,0,0,0,50,10,12),
+(17,'可乐','饮料','饮料',70,0,0,0,70,10,12),
+(25,'雪碧','饮料','气泡水',50,0,0,0,50,3,5);
+
+/*Table structure for table `grocery_running` */
+
+DROP TABLE IF EXISTS `grocery_running`;
+
+CREATE TABLE `grocery_running` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `CTIME` DATETIME DEFAULT NULL,
+  `ITEM_ID` INT(11) DEFAULT NULL,
+  `TOTAL` INT(11) DEFAULT NULL,
+  `PER_MONEY` DOUBLE DEFAULT NULL,
+  `ALL_MONEY` DOUBLE DEFAULT NULL,
+  `TYPE` INT(11) DEFAULT NULL COMMENT '1 buy, 2 sell, 3 use',
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `ITEM_ID` (`ITEM_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+/*Data for the table `grocery_running` */
+
+INSERT  INTO `grocery_running`(`ID`,`CTIME`,`ITEM_ID`,`TOTAL`,`PER_MONEY`,`ALL_MONEY`,`TYPE`,`SYS_STATE`) VALUES 
+(1,'2017-03-14 11:48:12',1,2,10,20,1,1),
+(2,'2017-03-14 11:48:17',1,2,10,20,1,1),
+(3,'2017-03-14 11:48:21',1,2,12,24,2,1),
+(4,'2017-03-14 11:48:25',1,2,10,20,3,1),
+(5,'2017-03-14 11:48:34',1,2,12,24,2,1),
+(6,'2017-03-14 11:48:39',1,2,10,20,3,1),
+(7,'2017-03-16 21:22:16',1,2,12,24,2,1),
+(8,'2017-04-27 13:36:29',10,2,12,24,2,NULL),
+(9,'2017-04-27 13:36:33',10,2,10,20,1,NULL),
+(10,'2017-04-27 13:36:48',10,2,10,20,3,NULL),
+(11,'2017-11-01 11:16:24',11,2,10,20,1,NULL),
+(12,'2017-11-01 11:16:48',11,2,10,20,1,NULL),
+(13,'2017-11-02 10:16:08',10,2,10,20,1,NULL),
+(14,'2017-11-02 11:14:45',12,2,10,20,1,NULL),
+(15,'2017-11-02 11:14:55',12,2,10,20,1,NULL),
+(16,'2017-11-02 11:15:01',12,2,10,20,1,NULL),
+(17,'2017-11-02 11:15:08',12,23,12,276,2,NULL),
+(18,'2017-11-02 11:16:31',12,2,10,20,3,NULL),
+(19,'2017-11-06 09:48:39',12,2,10,20,1,NULL),
+(20,'2017-11-06 09:48:41',12,2,12,24,2,NULL),
+(21,'2017-11-06 09:48:44',12,2,10,20,1,NULL),
+(22,'2017-11-06 09:48:47',12,2,12,24,2,NULL),
+(23,'2017-11-06 09:49:51',12,2,10,20,1,NULL),
+(24,'2017-11-06 10:32:59',12,2,10,20,3,NULL),
+(25,'2017-11-07 11:16:42',15,2,10,20,3,NULL),
+(26,'2017-11-07 11:16:52',15,2,12,24,2,NULL),
+(27,'2017-11-07 11:16:58',15,2,10,20,1,NULL),
+(28,'2018-06-28 21:00:38',17,20,10,200,1,NULL);
+
+/*Table structure for table `guest` */
+
+DROP TABLE IF EXISTS `guest`;
+
+CREATE TABLE `guest` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `ROOM_TYPE` VARCHAR(64) DEFAULT NULL,
+  `CONTRACT_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `TEL` VARCHAR(64) DEFAULT NULL,
+  `COMPANY` VARCHAR(64) DEFAULT NULL,
+  `TITLE` VARCHAR(64) DEFAULT NULL,
+  `PERSONS` INT(11) DEFAULT NULL,
+  `COMING` INT(11) DEFAULT NULL,
+  `PARKING` VARCHAR(64) DEFAULT NULL,
+  `CAR` VARCHAR(64) DEFAULT NULL,
+  `COMMENT` VARCHAR(256) DEFAULT NULL,
+  `CHARGE` DOUBLE DEFAULT NULL,
+  `TIMEIN` DATETIME DEFAULT NULL,
+  `TIMEOUT` DATETIME DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1' COMMENT '正在入住0  历史入住1',
+  `OTHER_GUESTS` VARCHAR(255) DEFAULT NULL,
+  `GUEST_TYPE` VARCHAR(255) DEFAULT NULL,
+  `BIRTHDAY` DATE DEFAULT NULL,
+  `EMAIL` VARCHAR(64) DEFAULT NULL,
+  `COMPANY_CONTACTOR` VARCHAR(64) DEFAULT NULL,
+  `COMPANY_TEL` VARCHAR(64) DEFAULT NULL,
+  `COMPANY_ACCOUNT` VARCHAR(64) DEFAULT NULL,
+  `COMPANY_INVOICE` VARCHAR(64) DEFAULT NULL,
+  `COMPANY_PAYMODE` VARCHAR(64) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `CONTRACT_NUMBER` (`CONTRACT_NUMBER`),
+  KEY `GUEST_NAME` (`GUEST_NAME`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`)
+) ENGINE=INNODB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+
+/*Data for the table `guest` */
+
+INSERT  INTO `guest`(`ID`,`GUEST_NAME`,`ROOM_NUMBER`,`ROOM_TYPE`,`CONTRACT_NUMBER`,`TEL`,`COMPANY`,`TITLE`,`PERSONS`,`COMING`,`PARKING`,`CAR`,`COMMENT`,`CHARGE`,`TIMEIN`,`TIMEOUT`,`SYS_STATE`,`OTHER_GUESTS`,`GUEST_TYPE`,`BIRTHDAY`,`EMAIL`,`COMPANY_CONTACTOR`,`COMPANY_TEL`,`COMPANY_ACCOUNT`,`COMPANY_INVOICE`,`COMPANY_PAYMODE`) VALUES 
+(1,'Ada','W12-3',NULL,'S131','15688888888','Amazon','经理',2,0,'T3',NULL,'无',15000.5,'2016-11-11 00:00:00','2017-11-11 00:00:00',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(47,'Ada3','W10-3',NULL,'S1313','15688888888','Amazon','经理',2,0,'T3',NULL,'无',15000.5,'2016-11-11 00:00:00','2017-11-11 00:00:00',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(49,'Ada5','W11-1',NULL,'S1311','15688888888','Amazon','主管',2,0,'T3',NULL,'无',15000.5,'2016-11-11 00:00:00','2017-11-11 00:00:00',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(50,'测试','W7-3',NULL,'S020','15688888888','Amazon','经理',2,0,'T3',NULL,'无',15000.5,'2016-11-11 00:00:00','2017-11-11 00:00:00',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(54,'Ada','W33-2',NULL,'S142','15688888888','Amazon','经理',2,0,'T3',NULL,'无',15000.5,'2016-11-11 00:00:00','2017-11-11 00:00:00',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(62,'Ada','W33-3',NULL,'S137','15688888888','Amazon','经理',2,0,'T3',NULL,'无',15000.5,'2017-06-20 00:00:00','2017-06-02 00:00:00',0,'张三,李四,王五','日本','2017-06-20','无','无','无','无','无','银行转账'),
+(63,'Ada','W33-3',NULL,'S13111','15688888888','Amazon','经理',2,1,'T3',NULL,'无',15000.5,'2017-06-20 00:00:00','2017-06-20 00:00:00',0,'张三,李四,王五','其它','2017-06-20','无','无','无','无','无','现金'),
+(64,'Ada','W33-3',NULL,'S1315555','15688888888','Amazon','经理',2,0,'T3',NULL,'无',15000.5,'2017-06-20 00:00:00','2017-06-20 00:00:00',0,'张三,李四,王五','欧美','2017-06-20','无','无','无','无','无','现金');
+
+/*Table structure for table `guest_balance` */
+
+DROP TABLE IF EXISTS `guest_balance`;
+
+CREATE TABLE `guest_balance` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `GUEST_ID` INT(10) UNSIGNED DEFAULT NULL,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `CHARGE_TURN` INT(11) DEFAULT NULL,
+  `CHARGE_WAY` VARCHAR(64) DEFAULT NULL,
+  `RETURN_TURN` INT(11) DEFAULT NULL,
+  `INVOICE_TURN` INT(11) DEFAULT NULL,
+  `BEGIN_DAY` DATE DEFAULT NULL,
+  `END_DAY` DATE DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `GUEST_ID` (`GUEST_ID`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`),
+  CONSTRAINT `guest_balance_ibfk_1` FOREIGN KEY (`GUEST_ID`) REFERENCES `guest` (`ID`) ON DELETE CASCADE
+) ENGINE=INNODB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+
+/*Data for the table `guest_balance` */
+
+INSERT  INTO `guest_balance`(`ID`,`GUEST_ID`,`ROOM_NUMBER`,`CHARGE_TURN`,`CHARGE_WAY`,`RETURN_TURN`,`INVOICE_TURN`,`BEGIN_DAY`,`END_DAY`,`SYS_STATE`) VALUES 
+(1,1,'W33-3',30,'现金',30,30,NULL,NULL,0),
+(28,47,'W33-3',30,'现金',30,30,NULL,NULL,0),
+(82,122,'W22-2',1,'现金',1,1,'2017-09-20','2017-09-20',0),
+(84,125,'W15-3',1,'现金',1,1,'2017-09-20','2017-09-20',0),
+(85,126,'W17-3',1,'现金',1,1,'2017-09-20','2017-09-20',0),
+(86,128,'W7-1',1,'现金',1,1,'2017-09-20','2017-09-20',0),
+(87,129,'W18-2',1,'现金',1,1,'2017-10-12','2017-10-12',0);
+
+/*Table structure for table `guest_service` */
+
+DROP TABLE IF EXISTS `guest_service`;
+
+CREATE TABLE `guest_service` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `GUEST_ID` INT(10) UNSIGNED DEFAULT NULL,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `NAME` VARCHAR(64) DEFAULT NULL,
+  `LECHARGE` DOUBLE DEFAULT NULL,
+  `LECOUNT` INT(11) DEFAULT NULL,
+  `SPCHARGE` DOUBLE DEFAULT NULL,
+  `SPCOUNT` INT(11) DEFAULT NULL,
+  `TURN` INT(11) DEFAULT NULL,
+  `COMMENT` VARCHAR(256) DEFAULT NULL,
+  `FREE` INT(11) DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  `FREE_MONEY` DOUBLE DEFAULT NULL COMMENT '赠送金额',
+  `FREE_REASON` VARCHAR(64) DEFAULT NULL COMMENT '赠送理由',
+  PRIMARY KEY (`ID`),
+  KEY `GUEST_ID` (`GUEST_ID`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`),
+  CONSTRAINT `guest_service_ibfk_1` FOREIGN KEY (`GUEST_ID`) REFERENCES `guest` (`ID`) ON DELETE CASCADE
+) ENGINE=INNODB AUTO_INCREMENT=985 DEFAULT CHARSET=utf8;
+
+/*Data for the table `guest_service` */
+
+INSERT  INTO `guest_service`(`ID`,`GUEST_ID`,`ROOM_NUMBER`,`NAME`,`LECHARGE`,`LECOUNT`,`SPCHARGE`,`SPCOUNT`,`TURN`,`COMMENT`,`FREE`,`SYS_STATE`,`FREE_MONEY`,`FREE_REASON`) VALUES 
+(1,1,'W33-3','newspaper',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(2,1,'W33-3','tv',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(4,1,'W33-3','break',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(5,1,'W33-3','water',1000,1,1000,NULL,1,'无',0,9,NULL,NULL),
+(6,1,'W33-3','Int',1000.5,1,1000,1,1,'无',0,9,NULL,NULL),
+(7,1,'W33-3','daily',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(8,1,'W33-3','breakfast',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(9,1,'W33-3','park',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(10,1,'W33-3','cloth',1000,1,1000,1,1,'无',0,9,NULL,NULL),
+(11,1,'W33-3','shopping',1000,1,1000,1,1,'无',0,9,NULL,NULL);
+
+/*Table structure for table `host` */
+
+DROP TABLE IF EXISTS `host`;
+
+CREATE TABLE `host` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `GUEST_ID` INT(10) UNSIGNED DEFAULT NULL,
+  `HOST_NAME` VARCHAR(64) DEFAULT NULL,
+  `RENT_CHARGE` DOUBLE DEFAULT NULL,
+  `SERVICE_CHARGE` DOUBLE DEFAULT NULL,
+  `RETURN_MONEY` DOUBLE DEFAULT NULL,
+  `OTHER_CHARGE` DOUBLE DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  `HOST_TYPE` VARCHAR(64) DEFAULT NULL COMMENT 'SPC或小业主',
+  `HOST_IDENTITY` VARCHAR(64) DEFAULT NULL,
+  `HOST_ACCOUNT` VARCHAR(64) DEFAULT NULL,
+  `TAX_CHARGE` DOUBLE DEFAULT NULL,
+  `TENET_CHARGE` DOUBLE DEFAULT NULL COMMENT '物业管理费',
+  `HEATING_CHARGE` DOUBLE DEFAULT NULL,
+  `ACTUAL_CHARGE` DOUBLE DEFAULT NULL,
+  `SPC_RECOVER` VARCHAR(255) DEFAULT NULL COMMENT '是否追缴物业费（追缴/不追缴）',
+  `HEATING_RECOVER` VARCHAR(255) DEFAULT NULL COMMENT '是否追缴采暖费（追缴/不追缴）',
+  `ACCOUNT_COMMENT` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `GUEST_ID` (`GUEST_ID`),
+  CONSTRAINT `host_ibfk_1` FOREIGN KEY (`GUEST_ID`) REFERENCES `guest` (`ID`) ON DELETE CASCADE
+) ENGINE=INNODB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+
+/*Data for the table `host` */
+
+INSERT  INTO `host`(`ID`,`GUEST_ID`,`HOST_NAME`,`RENT_CHARGE`,`SERVICE_CHARGE`,`RETURN_MONEY`,`OTHER_CHARGE`,`SYS_STATE`,`HOST_TYPE`,`HOST_IDENTITY`,`HOST_ACCOUNT`,`TAX_CHARGE`,`TENET_CHARGE`,`HEATING_CHARGE`,`ACTUAL_CHARGE`,`SPC_RECOVER`,`HEATING_RECOVER`,`ACCOUNT_COMMENT`) VALUES 
+(1,1,'Joe',20000.5,10000.5,5000.5,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(15,47,'Joe',20000.5,10000.5,5000.5,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(16,49,'Joe',20000.5,10000.5,5000.5,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(17,50,'Joe',20000.5,10000.5,5000.5,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(18,54,'Joe',20000.5,10000.5,5000.5,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(21,64,'SPC',20000.5,10000.5,0,0,0,'SPC','09478093845093840593845','98320192830192',0,0,0,0,NULL,NULL,NULL);
+
+/*Table structure for table `income` */
+
+DROP TABLE IF EXISTS `income`;
+
+CREATE TABLE `income` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `TIME` DATETIME DEFAULT NULL,
+  `CONTRACT_RECEIVE` DOUBLE DEFAULT '0',
+  `CONTAACT_PAY` DOUBLE DEFAULT '0',
+  `BENIFIT` DOUBLE DEFAULT '0',
+  `SOURCE` DOUBLE DEFAULT '0',
+  `DAILY_SERVICE` DOUBLE DEFAULT '0',
+  `MAINTAIN` DOUBLE DEFAULT '0',
+  `SHUTTLE_BUS` DOUBLE DEFAULT '0',
+  `LAUNDRY` DOUBLE DEFAULT '0',
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `income` */
+
+/*Table structure for table `intern` */
+
+DROP TABLE IF EXISTS `intern`;
+
+CREATE TABLE `intern` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `GUEST_ID` INT(10) UNSIGNED DEFAULT NULL,
+  `LE_1` DOUBLE DEFAULT NULL,
+  `LE_2` DOUBLE DEFAULT NULL,
+  `LE_3` DOUBLE DEFAULT NULL,
+  `LE_SERVICE` DOUBLE DEFAULT NULL,
+  `IN_1` DOUBLE DEFAULT NULL,
+  `IN_2` DOUBLE DEFAULT NULL,
+  `IN_3` DOUBLE DEFAULT NULL,
+  `IN_SERVICE` DOUBLE DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  `IN_NAME` VARCHAR(64) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `GUEST_ID` (`GUEST_ID`),
+  CONSTRAINT `intern_ibfk_1` FOREIGN KEY (`GUEST_ID`) REFERENCES `guest` (`ID`) ON DELETE CASCADE
+) ENGINE=INNODB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+
+/*Data for the table `intern` */
+
+INSERT  INTO `intern`(`ID`,`GUEST_ID`,`LE_1`,`LE_2`,`LE_3`,`LE_SERVICE`,`IN_1`,`IN_2`,`IN_3`,`IN_SERVICE`,`SYS_STATE`,`IN_NAME`) VALUES 
+(1,1,0.3,0.26,0.16,26000.2,0.36,0.26,0.16,36000.2,0,'链家');
+
+/*Table structure for table `invoice` */
+
+DROP TABLE IF EXISTS `invoice`;
+
+CREATE TABLE `invoice` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NUM` VARCHAR(64) DEFAULT NULL,
+  `PLAN_ID` INT(11) DEFAULT NULL,
+  `MONEY` DOUBLE DEFAULT NULL,
+  `CTIME` DATETIME DEFAULT NULL,
+  `TERM` INT(11) DEFAULT NULL,
+  `OTHERS` VARCHAR(64) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `PLAN_ID` (`PLAN_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `invoice` */
+
+/*Table structure for table `invoice_detail` */
+
+DROP TABLE IF EXISTS `invoice_detail`;
+
+CREATE TABLE `invoice_detail` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `INV_ID` INT(11) DEFAULT NULL,
+  `ITEM` VARCHAR(64) DEFAULT NULL,
+  `TOTAL` INT(11) DEFAULT NULL,
+  `ALL_MONEY` DOUBLE DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `INV_ID` (`INV_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `invoice_detail` */
+
+/*Table structure for table `laundry` */
+
+DROP TABLE IF EXISTS `laundry`;
+
+CREATE TABLE `laundry` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `DATE` DATE DEFAULT NULL,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `CLOTHES` VARCHAR(1024) DEFAULT '[]',
+  `OTHER` VARCHAR(1024) DEFAULT '[]',
+  `COUNT` INT(11) DEFAULT '0',
+  `TOTAL_PRICE` INT(11) DEFAULT '0',
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+
+/*Data for the table `laundry` */
+
+INSERT  INTO `laundry`(`ID`,`DATE`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`CLOTHES`,`OTHER`,`COUNT`,`TOTAL_PRICE`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,'2017-05-02','W33-3',1,'Ada','[]','[]',0,0,'2017-06-01 23:51:39','2017-05-18 23:52:18','2017-05-31 23:52:21'),
+(2,'2017-05-04','W2-1',3,'Tom','[]','[]',0,0,'2017-06-07 23:51:47','2017-05-16 23:52:14','2017-05-18 23:52:23'),
+(3,'2017-04-27','W10-3',47,'Ada3','[{\"name\":\"女装衬衫\",\"count\":1,\"mode\":\"水洗\"},{\"name\":\"睡衣\",\"count\":2,\"mode\":\"干洗\"},{\"name\":\"西服上衣\",\"count\":4,\"mode\":\"单熨\"},{\"name\":\"领带\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"围巾\",\"count\":3,\"mode\":\"单熨\"}]','[{\"name\":\"我的衣服\",\"count\":3,\"mode\":\"干洗\",\"price\":44},{\"name\":\"我的裤子\",\"count\":4,\"mode\":\"干洗\",\"price\":55}]',18,505,'2017-04-27 00:00:00','2017-05-08 23:52:11','2017-05-15 00:14:50'),
+(7,'2017-03-09','W1-3',50,'测','[{\"count\":2,\"name\":\"短裤\",\"mode\":\"干洗\"}]','[{\"price\":5,\"count\":1,\"name\":\"袜子\",\"mode\":\"水洗\"}]',0,0,'2017-05-24 23:51:54','2017-05-23 23:52:08','2017-05-17 23:52:29'),
+(11,'2017-05-12','W6-1',59,'aaa','[{\"count\":1,\"name\":\"西服上衣\",\"mode\":\"单熨\"},{\"count\":20,\"name\":\"西服裤子\",\"mode\":\"单熨\"},{\"count\":2,\"name\":\"西服马甲\",\"mode\":\"单熨\"},{\"count\":2,\"name\":\"领带\",\"mode\":\"单熨\"},{\"count\":2,\"name\":\"休闲上衣\",\"mode\":\"单熨\"}]','[]',27,222,'2017-05-17 23:52:00','2017-05-29 23:52:03','2017-05-06 23:52:34'),
+(12,'2017-05-12','W7-3',50,'测','[{\"count\":2,\"name\":\"西服上衣\",\"mode\":\"单熨\"},{\"count\":2,\"name\":\"西服裤子\",\"mode\":\"单熨\"},{\"count\":2,\"name\":\"西服马甲\",\"mode\":\"单熨\"},{\"count\":1,\"name\":\"领带\",\"mode\":\"单熨\"},{\"count\":1,\"name\":\"休闲上衣\",\"mode\":\"单熨\"},{\"count\":1,\"name\":\"毛衣\",\"mode\":\"单熨\"}]','[]',9,80,'2017-05-12 00:00:00','2017-05-12 23:34:28','2017-05-12 23:35:39'),
+(24,'2017-05-14','W26-3',60,'abc','[{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"水洗\"},{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"干洗\"}]','[]',2,45,'2017-05-14 00:00:00','2017-05-14 15:56:46','2017-05-14 15:56:46'),
+(25,'2017-05-14','W26-3',60,'abc','[{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"水洗\"},{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"干洗\"}]','[]',2,45,'2017-05-14 00:00:00','2017-05-14 15:56:57','2017-05-14 15:56:57'),
+(27,'2017-05-14','W26-3',60,'abc','[{\"name\":\"领带\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"风衣\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"休闲裤\",\"count\":10,\"mode\":\"单熨\"}]','[]',13,120,'2017-05-14 00:00:00','2017-05-14 15:59:27','2017-05-14 15:59:27'),
+(28,'2017-05-14','W26-3',60,'abc','[{\"name\":\"西服裤子\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"毛衣\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"休闲裤\",\"count\":8,\"mode\":\"单熨\"}]','[]',11,90,'2017-05-14 00:00:00','2017-05-14 16:00:37','2017-05-14 16:00:37'),
+(30,'2017-05-14','W26-3',60,'abc','[{\"name\":\"领带\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"毛衣\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"羊绒外套（短）\",\"count\":1,\"mode\":\"单熨\"}]','[]',4,50,'2017-05-14 00:00:00','2017-05-14 16:03:51','2017-05-14 16:03:51'),
+(31,'2017-05-14','W26-3',60,'abc','[{\"name\":\"西服上衣\",\"count\":8,\"mode\":\"干洗\"},{\"name\":\"西服裤子\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"单熨\"}]','[]',10,256,'2017-05-14 00:00:00','2017-05-14 16:04:34','2017-05-14 16:04:34'),
+(32,'2017-05-15','W33-3',1,'Ada','[{\"name\":\"背心\",\"count\":5,\"mode\":\"水洗\"},{\"name\":\"休闲上衣\",\"count\":5,\"mode\":\"干洗\"},{\"name\":\"羽绒外套（短）\",\"count\":5,\"mode\":\"干洗\"},{\"name\":\"羊绒外套（中）\",\"count\":3,\"mode\":\"单熨\"}]','[{\"name\":\"手巾\",\"count\":2,\"mode\":\"水洗\",\"price\":10},{\"name\":\"护甲\",\"count\":2,\"mode\":\"干洗\",\"price\":104},{\"name\":\"护膝\",\"count\":1,\"mode\":\"干洗\",\"price\":43},{\"name\":\"盔甲\",\"count\":3,\"mode\":\"单熨\",\"price\":57}]',26,1042,'2017-05-15 00:00:00','2017-05-15 00:20:55','2017-05-15 17:41:34'),
+(33,'2017-05-16','W11-1',49,'Ada5','[{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"干洗\"},{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"干洗\"},{\"name\":\"T恤\",\"count\":1,\"mode\":\"干洗\"},{\"name\":\"丝质围巾\",\"count\":1,\"mode\":\"干洗\"}]','[{\"name\":\"皮鞋2\",\"count\":5,\"mode\":\"水洗\",\"price\":14},{\"name\":\"皮鞋3\",\"count\":1,\"mode\":\"水洗\",\"price\":15},{\"name\":\"皮鞋1\",\"count\":2,\"mode\":\"干洗\",\"price\":102}]',12,399,'2017-05-16 00:00:00','2017-05-16 14:48:27','2017-05-16 14:48:27'),
+(34,'2017-05-16','W33-3',1,'Ada','[{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"水洗\"}]','[]',1,20,'2017-05-16 00:00:00','2017-05-16 14:49:25','2017-05-16 14:49:25'),
+(35,'2017-05-16','W7-3',50,'测','[{\"name\":\"西服上衣\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"西服裤子\",\"count\":1,\"mode\":\"单熨\"}]','[]',2,18,'2017-05-16 00:00:00','2017-05-16 17:04:15','2017-05-16 17:04:15'),
+(36,'2017-05-16','W7-3',50,'测','[]','[]',0,0,'2017-05-16 00:00:00','2017-05-16 17:04:29','2017-05-16 17:04:29'),
+(37,'2017-05-16','W7-3',50,'测','[]','[]',0,0,'2017-05-16 00:00:00','2017-05-16 17:04:50','2017-05-16 17:04:50'),
+(38,'2017-05-24','W11-1',49,'Ada5','[{\"name\":\"休闲上衣\",\"count\":22,\"mode\":\"单熨\"},{\"name\":\"毛衣/毛衣外套\",\"count\":1,\"mode\":\"单熨\"}]','[{\"name\":\"其他1\",\"count\":1,\"mode\":\"干洗\",\"price\":10},{\"name\":\"布衣\",\"count\":1,\"mode\":\"干洗\",\"price\":40},{\"name\":\"卫衣\",\"count\":2,\"mode\":\"单熨\",\"price\":33}]',27,346,'2017-05-24 00:00:00','2017-05-25 15:26:09','2017-05-25 15:53:26'),
+(39,'2017-05-25','W11-1',49,'Ada5','[{\"name\":\"西服马甲\",\"count\":3,\"mode\":\"单熨\"}]','[]',3,24,'2017-05-25 00:00:00','2017-05-25 15:56:12','2017-05-25 15:56:12'),
+(40,'2017-05-25','W33-3',1,'Ada','[{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"水洗\"},{\"name\":\"毛衣/毛衣外套\",\"count\":1,\"mode\":\"干洗\"}]','[]',2,50,'2017-05-25 00:00:00','2017-05-25 15:56:26','2017-05-25 15:56:26'),
+(41,'2017-05-25','W33-3',1,'Ada','[{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"干洗\"},{\"name\":\"休闲上衣\",\"count\":1,\"mode\":\"单熨\"}]','[]',2,35,'2017-05-25 00:00:00','2017-05-25 16:00:54','2017-05-25 16:00:54'),
+(42,'2017-05-16','W11-1',49,'Ada5','[{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"领带\",\"count\":1,\"mode\":\"单熨\"}]','[]',2,16,'2017-05-16 00:00:00','2017-05-25 16:01:58','2017-05-25 16:06:53'),
+(43,'2017-05-24','W33-3',1,'Ada','[{\"name\":\"西服上衣\",\"count\":1,\"mode\":\"单熨\"}]','[]',1,10,'2017-05-24 00:00:00','2017-05-25 16:04:01','2017-05-25 16:04:01'),
+(44,'2017-05-23','W11-1',49,'Ada5','[{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"单熨\"},{\"name\":\"领带\",\"count\":1,\"mode\":\"单熨\"}]','[]',2,16,'2017-05-23 00:00:00','2017-05-25 16:05:38','2017-05-25 16:05:38'),
+(45,'2017-06-05','W33-3',1,'Ada','[{\"name\":\"西服马甲\",\"count\":1,\"mode\":\"单熨\"}]','[]',1,8,'2017-06-05 00:00:00','2017-06-05 14:21:41','2017-06-05 14:21:41');
+
+/*Table structure for table `mail_reminder` */
+
+DROP TABLE IF EXISTS `mail_reminder`;
+
+CREATE TABLE `mail_reminder` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `SENDER_ID` INT(11) DEFAULT NULL,
+  `SENDER_NAME` VARCHAR(64) DEFAULT NULL,
+  `RECEIVER_ID` INT(11) DEFAULT NULL,
+  `RECEIVER_NAME` VARCHAR(64) DEFAULT NULL,
+  `TITLE` VARCHAR(200) DEFAULT NULL,
+  `CONTENT` VARCHAR(1000) DEFAULT NULL,
+  `REMIND_DATE` DATE DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  `STATE` VARCHAR(10) DEFAULT NULL COMMENT '完成、未完成',
+  `RECEIVE_STATE` VARCHAR(255) DEFAULT '',
+  `REPLY` VARCHAR(1000) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+
+/*Data for the table `mail_reminder` */
+
+INSERT  INTO `mail_reminder`(`ID`,`SENDER_ID`,`SENDER_NAME`,`RECEIVER_ID`,`RECEIVER_NAME`,`TITLE`,`CONTENT`,`REMIND_DATE`,`EDIT_TIME`,`STATE`,`RECEIVE_STATE`,`REPLY`) VALUES 
+(6,11,'客房部001',2,'test','题目测试','测试内容','2018-06-14','2018-06-14 14:54:51','未完成','待接受',NULL),
+(7,11,'客房部001',2,'test','测试2','测试内容2','2018-06-14','2018-06-14 14:54:55','未完成','待接受',NULL),
+(9,10,'客服部001',2,'test','121212','12121','2018-06-09','2018-06-14 14:55:51','未完成','待接受',NULL);
+
+/*Table structure for table `maintain` */
+
+DROP TABLE IF EXISTS `maintain`;
+
+CREATE TABLE `maintain` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `STIME` DATETIME DEFAULT NULL,
+  `FTIME` DATETIME DEFAULT NULL,
+  `ETIME` DATETIME DEFAULT NULL,
+  `LEVEL` INT(11) DEFAULT NULL,
+  `PROBLEM` VARCHAR(1024) DEFAULT '',
+  `PRO_TYPE` VARCHAR(256) DEFAULT NULL,
+  `PRO_CAUSE` VARCHAR(256) DEFAULT NULL,
+  `PRO_DETAIL` VARCHAR(1024) DEFAULT '',
+  `PIC` VARCHAR(256) DEFAULT NULL,
+  `CHARGE` DOUBLE DEFAULT '0',
+  `TIMES` INT(11) DEFAULT '1',
+  `COMMENT` VARCHAR(256) DEFAULT NULL,
+  `FOLLOW` VARCHAR(1024) DEFAULT '',
+  `STATE` INT(11) DEFAULT '0',
+  `PAY` TINYINT(1) DEFAULT '0',
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`)
+) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `maintain` */
+
+INSERT  INTO `maintain`(`ID`,`ROOM_NUMBER`,`GUEST_ID`,`STIME`,`FTIME`,`ETIME`,`LEVEL`,`PROBLEM`,`PRO_TYPE`,`PRO_CAUSE`,`PRO_DETAIL`,`PIC`,`CHARGE`,`TIMES`,`COMMENT`,`FOLLOW`,`STATE`,`PAY`,`SYS_STATE`) VALUES 
+(1,'W33-3',NULL,'2018-06-02 00:00:00',NULL,'2018-06-01 00:00:00',NULL,'空调故障','','','1',NULL,12,1,'12','',1,0,1);
+
+/*Table structure for table `meal` */
+
+DROP TABLE IF EXISTS `meal`;
+
+CREATE TABLE `meal` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `RESTAURANT_NAME` VARCHAR(64) DEFAULT NULL,
+  `TOTAL_PRICE` DOUBLE DEFAULT NULL COMMENT '总消费费用',
+  `PAY_MODE` TINYINT(3) DEFAULT NULL COMMENT '支付方式（现金0 月结1）',
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `STAFF_ID` INT(11) DEFAULT NULL COMMENT '点餐人的ID号',
+  `STAFF_NAME` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL COMMENT '发生时间(点餐时间）',
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+/*Data for the table `meal` */
+
+INSERT  INTO `meal`(`ID`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`RESTAURANT_NAME`,`TOTAL_PRICE`,`PAY_MODE`,`COMMENT`,`STAFF_ID`,`STAFF_NAME`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,'W33-2',54,'测试','其他',0,0,'无',3,'andy','2017-06-10 00:00:00','2017-06-12 20:25:30','2017-06-12 20:25:30'),
+(3,'W33-2',54,'Ada','其他',0,0,'无',0,'请选择','2017-06-12 00:00:00','2017-06-12 20:26:43','2017-06-12 20:26:43'),
+(4,'W33-2',54,'Ada','其他',0,0,'无',1,'ken','2017-06-12 00:00:00','2017-06-12 20:26:55','2017-06-12 20:53:38'),
+(5,'W33-2',54,'Ada','其他',0,0,'无',0,'请选择','2017-06-12 00:00:00','2017-06-12 20:27:01','2017-06-12 20:27:01'),
+(6,'W33-2',54,'Ada','其他',0,0,'无',0,'请选择','2017-06-12 00:00:00','2017-06-12 20:28:01','2017-06-12 20:28:01'),
+(7,'W33-2',54,'Ada','其他',0,0,'无',0,'请选择','2017-06-12 00:00:00','2017-06-12 20:28:08','2017-06-12 20:28:08'),
+(8,'W7-3',50,'测','其他',0,0,'无',0,'请选择','2017-06-12 00:00:00','2017-06-12 22:05:00','2017-06-12 22:05:00'),
+(9,'W11-1',49,'Ada5','寿司',0,1,'无',2,'test','2017-06-14 00:00:00','2017-06-14 12:05:45','2017-06-14 12:06:00'),
+(10,'W11-1',49,'Ada5','寿司',0,0,'无',0,'请选择','2017-06-14 00:00:00','2017-06-14 12:34:02','2017-06-14 12:34:41'),
+(11,'W33-3',105,'Ada','岗顶快餐',30,0,'无',2,'test','2017-10-18 00:00:00','2017-10-18 16:49:27','2017-10-18 16:49:27'),
+(12,'W33-3',105,'Ada','岗顶快餐',22,0,'无',2,'test','2017-10-18 00:00:00','2017-10-18 16:53:21','2017-10-18 16:53:21');
+
+/*Table structure for table `message` */
+
+DROP TABLE IF EXISTS `message`;
+
+CREATE TABLE `message` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `CTIME` DATE NOT NULL,
+  `NTIME` DATE NOT NULL,
+  `TYPE` INT(11) NOT NULL,
+  `USERID` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `CONTENT` VARCHAR(256) DEFAULT NULL,
+  `STATE` INT(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `USERID` (`USERID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `message` */
+
+/*Table structure for table `other_fare` */
+
+DROP TABLE IF EXISTS `other_fare`;
+
+CREATE TABLE `other_fare` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `USAGE_TYPE` VARCHAR(64) DEFAULT NULL,
+  `PAY_MODE` TINYINT(3) DEFAULT NULL,
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `TOTAL_PRICE` DOUBLE DEFAULT NULL,
+  `STAFF_ID` INT(11) DEFAULT NULL,
+  `STAFF_NAME` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `other_fare` */
+
+INSERT  INTO `other_fare`(`ID`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`USAGE_TYPE`,`PAY_MODE`,`COMMENT`,`TOTAL_PRICE`,`STAFF_ID`,`STAFF_NAME`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,'W33-3',1,'Ada','租车',1,'无',23.8,NULL,'姚陈坤','2017-05-25 00:00:00','2017-05-25 15:31:16','2017-05-25 15:32:13'),
+(2,'W11-1',49,'Ada5','出租车',1,'租了一辆车',200.72,NULL,'小明','2017-05-25 00:00:00','2017-05-25 15:32:48','2017-05-25 15:32:48'),
+(3,'W33-3',105,'Ada','租车',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:55:51','2017-11-01 10:55:51'),
+(4,'W33-3',105,'Ada','租车',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:55:53','2017-11-01 10:55:53'),
+(5,'W33-3',105,'Ada','滴滴',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:55:56','2017-11-01 10:55:56'),
+(6,'W33-3',105,'Ada','滴滴',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:55:59','2017-11-01 10:55:59'),
+(7,'W33-3',105,'Ada','租车',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:56:01','2017-11-01 10:56:01'),
+(8,'W33-3',105,'Ada','租车',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:56:03','2017-11-01 10:56:03'),
+(9,'W33-3',105,'Ada','租车',0,'4',4,NULL,'4','2017-11-01 00:00:00','2017-11-01 10:56:06','2017-11-01 10:56:06'),
+(10,'W33-3',105,'Ada','租车',0,'这是一个长字符串长字符串长字符串',4343434343,NULL,'34','2017-11-01 00:00:00','2017-11-01 11:02:00','2017-11-01 11:02:00');
+
+/*Table structure for table `plan` */
+
+DROP TABLE IF EXISTS `plan`;
+
+CREATE TABLE `plan` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(64) DEFAULT NULL,
+  `CTIME` DATETIME DEFAULT NULL,
+  `MONEY` DOUBLE DEFAULT NULL,
+  `STAFF` VARCHAR(64) DEFAULT NULL,
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
+
+/*Data for the table `plan` */
+
+INSERT  INTO `plan`(`ID`,`NAME`,`CTIME`,`MONEY`,`STAFF`,`COMMENT`,`SYS_STATE`) VALUES 
+(90,'2018-06-02采购测试','2018-06-02 13:31:16',100,'Alice','无',NULL),
+(91,'2018-06-02采购冰箱','2018-06-02 13:31:16',100,'Alice','无',NULL),
+(92,'2018-06-02采购冰箱','2018-06-02 13:31:16',50,'Alice','无',NULL),
+(93,'2018-06-02采购冰箱','2018-06-02 13:31:16',200,'Alice','无',NULL),
+(94,'2018-06-02采购冰箱','2018-06-02 13:31:16',100,'Alice','无',NULL),
+(95,'2018-06-02采购冰箱','2018-06-02 13:31:16',100,'Alice','无',NULL),
+(96,'2018-06-02采购冰箱','2018-06-02 13:31:16',100,'Alice','无',NULL),
+(97,'2018-06-02采购冰箱','2018-06-02 13:31:16',0,'Alice','无',NULL);
+
+/*Table structure for table `plan_detail` */
+
+DROP TABLE IF EXISTS `plan_detail`;
+
+CREATE TABLE `plan_detail` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `PLAN_ID` INT(11) DEFAULT NULL,
+  `FAC_ID` INT(11) DEFAULT NULL,
+  `TOTAL` INT(11) DEFAULT NULL,
+  `ALREADY` INT(11) DEFAULT '0',
+  `UNITPRICE` DOUBLE DEFAULT NULL,
+  `ALL_MONEY` DOUBLE DEFAULT NULL,
+  `PROVIDER` VARCHAR(64) DEFAULT NULL COMMENT '供应商',
+  `INVOICE_TYPE` VARCHAR(20) DEFAULT '' COMMENT '不含票  含普票 含增票',
+  `RECEIVED` VARCHAR(10) DEFAULT '' COMMENT '是否收到（0否 1收到）',
+  `ORDER_DATE` DATE DEFAULT NULL COMMENT '下单日期',
+  `ARRIVAL_DATE` DATE DEFAULT NULL COMMENT '到货日期',
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `PLAN_ID` (`PLAN_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
+
+/*Data for the table `plan_detail` */
+
+INSERT  INTO `plan_detail`(`ID`,`PLAN_ID`,`FAC_ID`,`TOTAL`,`ALREADY`,`UNITPRICE`,`ALL_MONEY`,`PROVIDER`,`INVOICE_TYPE`,`RECEIVED`,`ORDER_DATE`,`ARRIVAL_DATE`,`COMMENT`,`SYS_STATE`) VALUES 
+(86,90,78,10,10,10,100,'美的电器','不含票','是','2018-06-04','2018-06-04','无',NULL),
+(87,91,79,10,0,10,100,'美的电器','不含票','否','2018-06-04','2018-06-04','无',NULL),
+(88,92,78,5,4,10,50,'美的电器','含普票','是','2018-06-04','2018-06-04','无',NULL),
+(89,93,86,10,3,10,100,'美的电器','含普票','是','2018-06-04','2018-06-04','无',NULL),
+(91,94,89,10,7,10,100,'美的电器','含普票','是','2018-06-04','2018-06-04','无',NULL),
+(92,95,90,10,7,10,100,'美的电器','含普票','是','2018-06-04','2018-06-04','无',NULL),
+(93,96,91,10,10,10,100,'美的电器','不含票','-','2018-06-04','2018-06-04','无',NULL);
+
+/*Table structure for table `plan_progress` */
+
+DROP TABLE IF EXISTS `plan_progress`;
+
+CREATE TABLE `plan_progress` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `TIME` DATETIME DEFAULT NULL,
+  `PLAN_ID` INT(11) DEFAULT NULL,
+  `FAC_ID` INT(11) DEFAULT NULL,
+  `TERM` VARCHAR(64) DEFAULT NULL,
+  `TOTAL` INT(11) DEFAULT NULL,
+  `STAFF` VARCHAR(64) DEFAULT NULL,
+  `ALL_MONEY` DOUBLE DEFAULT NULL,
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `SYS_STATE` INT(11) DEFAULT '1',
+  PRIMARY KEY (`ID`),
+  KEY `PLAN_ID` (`PLAN_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+
+/*Data for the table `plan_progress` */
+
+INSERT  INTO `plan_progress`(`ID`,`TIME`,`PLAN_ID`,`FAC_ID`,`TERM`,`TOTAL`,`STAFF`,`ALL_MONEY`,`COMMENT`,`SYS_STATE`) VALUES 
+(51,'2018-06-08 12:45:46',88,68,'采购',8,'Alice',80,'无',NULL),
+(52,'2018-06-08 12:45:46',90,78,'采购',10,'Alice',100,'无',NULL),
+(53,'2018-06-08 12:45:46',92,78,'采购',4,'Alice',40,'无',NULL),
+(54,'2018-06-08 12:45:46',93,86,'采购',3,'Alice',30,'无',NULL),
+(55,'2018-06-08 12:45:46',93,87,'采购',4,'Alice',40,'无',NULL),
+(56,'2018-06-08 12:45:46',94,89,'采购',1,'Alice',10,'无',NULL),
+(57,'2018-06-08 12:45:46',94,89,'采购',6,'Alice',60,'无',NULL),
+(58,'2018-06-08 12:45:46',95,90,'采购',7,'Alice',70,'无',NULL),
+(59,'2018-06-08 12:45:46',96,91,'采购',10,'Alice',100,'无',NULL),
+(60,'2018-06-08 12:45:46',91,79,'采购',1,'Alice',10,'无',NULL),
+(61,'2018-06-08 12:45:46',91,79,'采购',2,'Alice',20,'无',NULL),
+(62,'2018-06-28 21:47:55',91,79,'采购',5,'ZhangSan',50,'无',NULL),
+(63,'2018-06-28 21:47:58',91,79,'采购',1,'Alice',10,'无',NULL);
+
+/*Table structure for table `problem` */
+
+DROP TABLE IF EXISTS `problem`;
+
+CREATE TABLE `problem` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(255) DEFAULT NULL,
+  `ROOM_STATE` VARCHAR(255) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(255) DEFAULT NULL,
+  `REFLECT_DATE` DATE DEFAULT NULL COMMENT '报修时间',
+  `SOLVE_DATE` DATE DEFAULT NULL COMMENT '需要解决时间',
+  `REFLECTER_ID` INT(11) DEFAULT NULL COMMENT '申报人',
+  `REFLECTER_NAME` VARCHAR(255) DEFAULT NULL,
+  `DESCRIPTION` VARCHAR(255) DEFAULT NULL COMMENT '问题描述',
+  `OUTSIDER_REASON` VARCHAR(255) DEFAULT NULL,
+  `OUTSIDER_COMMENT` VARCHAR(255) DEFAULT NULL COMMENT '备注',
+  `IS_LEMANAGE` INT(11) DEFAULT NULL,
+  `TYPE` VARCHAR(255) DEFAULT NULL,
+  `SUBTYPE` VARCHAR(255) DEFAULT NULL,
+  `LEVEL` VARCHAR(255) DEFAULT NULL,
+  `REPAIRER_REASON` VARCHAR(255) DEFAULT NULL,
+  `REPAIRER_COMMENT` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+/*Data for the table `problem` */
+
+INSERT  INTO `problem`(`ID`,`ROOM_NUM`,`ROOM_STATE`,`GUEST_NAME`,`REFLECT_DATE`,`SOLVE_DATE`,`REFLECTER_ID`,`REFLECTER_NAME`,`DESCRIPTION`,`OUTSIDER_REASON`,`OUTSIDER_COMMENT`,`IS_LEMANAGE`,`TYPE`,`SUBTYPE`,`LEVEL`,`REPAIRER_REASON`,`REPAIRER_COMMENT`) VALUES 
+(3,'W33-2','已入住','Ada','2018-06-01','2018-06-07',2,'test','xxxx',NULL,NULL,1,'房屋问题','地板损坏','一级',NULL,'ssss'),
+(4,'W33-2','已入住','Ada','2018-06-01','2018-06-07',2,'test','d',NULL,NULL,1,'房屋问题','地板损坏','一级',NULL,'d'),
+(5,'W33-2','已入住','Ada','2018-06-01','2018-06-07',2,'test','c',NULL,NULL,1,'房屋问题','地板损坏','一级',NULL,'ddd'),
+(6,'W33-2','已入住','Ada','2018-06-01','2018-06-07',2,'test','xxx',NULL,NULL,1,'房屋问题','地板损坏','一级',NULL,'ff');
+
+/*Table structure for table `problem_reply` */
+
+DROP TABLE IF EXISTS `problem_reply`;
+
+CREATE TABLE `problem_reply` (
+  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PROBLEM_ID` INT(11) DEFAULT NULL,
+  `LAST_REPLAY_DATE` DATE DEFAULT NULL,
+  `LAST_REPLAY_DESCRIPTION` VARCHAR(255) DEFAULT NULL,
+  `DEPARTMENT` VARCHAR(100) DEFAULT NULL COMMENT '分配部门',
+  `INFO_SOURCE` VARCHAR(25) DEFAULT NULL COMMENT '信息来源',
+  `FARE` DOUBLE DEFAULT NULL,
+  `PROBLEM_STATE` VARCHAR(15) DEFAULT NULL COMMENT '问题状态：跟踪中 搁置处理 确认完成',
+  `FARE_DETAIL` VARCHAR(255) DEFAULT NULL COMMENT '费用明细',
+  `FARE_PAY` VARCHAR(25) DEFAULT NULL COMMENT 'LE承担 租客承担 SPC承担 其他承担',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `problem_reply` */
+
+INSERT  INTO `problem_reply`(`ID`,`PROBLEM_ID`,`LAST_REPLAY_DATE`,`LAST_REPLAY_DESCRIPTION`,`DEPARTMENT`,`INFO_SOURCE`,`FARE`,`PROBLEM_STATE`,`FARE_DETAIL`,`FARE_PAY`) VALUES 
+(1,11,'2017-12-24',NULL,NULL,NULL,NULL,'搁置处理',NULL,NULL),
+(4,23,'2017-12-24','were',NULL,'第一太平',0,'跟踪中','','');
+
+/*Table structure for table `repository` */
+
+DROP TABLE IF EXISTS `repository`;
+
+CREATE TABLE `repository` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `REPO_NUM` VARCHAR(64) DEFAULT NULL,
+  `ADDRESS` VARCHAR(64) DEFAULT NULL,
+  `AREA` DOUBLE DEFAULT NULL,
+  `MANAGER_ID` INT(11) DEFAULT NULL,
+  `MANAGER_NAME` VARCHAR(64) DEFAULT NULL COMMENT '管理员',
+  `STATE` TINYINT(3) DEFAULT '0' COMMENT '0:空闲 1:占用',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `REPO_NUM` (`REPO_NUM`) USING BTREE
+) ENGINE=INNODB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+/*Data for the table `repository` */
+
+INSERT  INTO `repository`(`ID`,`REPO_NUM`,`ADDRESS`,`AREA`,`MANAGER_ID`,`MANAGER_NAME`,`STATE`) VALUES 
+(1,'R3-2','惠新西街库房3-2',100,1,'张三',1),
+(2,'R4-6','崇文门库房4-6',400,2,'李四',1),
+(3,'R7-8','北邮库房7-8',200,1,'张三',0),
+(4,'R8-8','明光桥8-8',200,2,'李四',0),
+(5,'R5-6','蓟门桥5-6',100,3,'王五',0),
+(12,'R1-1','东直门1-1',200,4,'钱六',0),
+(13,'R10-10','北航10-10',2000,4,'钱六',0);
+
+/*Table structure for table `room` */
+
+DROP TABLE IF EXISTS `room`;
+
+CREATE TABLE `room` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT '',
+  `TYPE` VARCHAR(64) DEFAULT NULL,
+  `AREA` DOUBLE DEFAULT NULL,
+  `RENT` INT(11) DEFAULT NULL,
+  `STATE` INT(11) DEFAULT NULL,
+  `COMM` VARCHAR(256) DEFAULT NULL,
+  `OWNER_NAME` VARCHAR(10) DEFAULT NULL,
+  `RECEIPT_TIME` DATETIME DEFAULT NULL COMMENT '接收时间',
+  `REFUND_TIME` DATETIME DEFAULT NULL COMMENT '退还时间',
+  `REPLACE_ROOM` VARCHAR(64) DEFAULT '',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ROOM_NUMBER` (`ROOM_NUMBER`)
+) ENGINE=INNODB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `room` */
+
+INSERT  INTO `room`(`ID`,`ROOM_NUMBER`,`TYPE`,`AREA`,`RENT`,`STATE`,`COMM`,`OWNER_NAME`,`RECEIPT_TIME`,`REFUND_TIME`,`REPLACE_ROOM`) VALUES 
+(1,'R1-1','',25,NULL,NULL,NULL,NULL,NULL,NULL,'');
+
+/*Table structure for table `room_item` */
+
+DROP TABLE IF EXISTS `room_item`;
+
+CREATE TABLE `room_item` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `FAC_ID` INT(11) DEFAULT NULL,
+  `TAG` VARCHAR(64) DEFAULT NULL,
+  `ALLOCATE_TYPE` VARCHAR(10) DEFAULT NULL COMMENT '分配、借用、-（新维修时生成的）',
+  `STATE` VARCHAR(11) DEFAULT NULL COMMENT '维修中0 使用中1',
+  `BORROW_DATE` DATE DEFAULT NULL,
+  `RETURN_DATE` DATE DEFAULT NULL,
+  `MAINTAIN_DURATION` INT(11) DEFAULT NULL COMMENT '维修时长（天）',
+  `COMM` VARCHAR(64) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ROOM_ID` (`ROOM_NUM`),
+  KEY `ITEM_ID` (`FAC_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+
+/*Data for the table `room_item` */
+
+INSERT  INTO `room_item`(`ID`,`ROOM_NUM`,`FAC_ID`,`TAG`,`ALLOCATE_TYPE`,`STATE`,`BORROW_DATE`,`RETURN_DATE`,`MAINTAIN_DURATION`,`COMM`) VALUES 
+(95,'W34-1',78,'123','分配','正常',NULL,NULL,NULL,'无'),
+(97,'W8-8',78,'空调1','分配','正常',NULL,NULL,NULL,'无'),
+(99,'W8-8',78,'空调2','分配','正常',NULL,NULL,NULL,'无'),
+(100,'W34-1',89,'123','分配','正常',NULL,NULL,NULL,'无'),
+(104,'W34-1',89,'123','分配','正常',NULL,NULL,NULL,'无'),
+(105,'W34-1',89,'555','分配','正常',NULL,NULL,NULL,'无'),
+(106,'W1-1',89,'555','分配','正常',NULL,NULL,NULL,'无'),
+(107,'W34-1',90,'123','分配','正常',NULL,NULL,NULL,'无'),
+(109,'W34-1',90,'5','分配','正常',NULL,NULL,NULL,'无'),
+(112,'-',90,'-','-','维修中',NULL,NULL,3,'无'),
+(113,'W34-1',90,'123','分配','维修中',NULL,NULL,3333,'无'),
+(114,'-',90,'-','-','维修中',NULL,NULL,3,'无'),
+(115,'W34-1',91,'123','分配','正常',NULL,NULL,NULL,'无'),
+(116,'W33-3',91,'456','分配','维修中',NULL,NULL,3,'无'),
+(119,'-',91,'-','-','维修中',NULL,NULL,2,'无'),
+(121,'-',78,'-','-','维修中',NULL,NULL,3,'无');
+
+/*Table structure for table `room_meter` */
+
+DROP TABLE IF EXISTS `room_meter`;
+
+CREATE TABLE `room_meter` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_ID` INT(11) DEFAULT NULL,
+  `TYPE` VARCHAR(11) DEFAULT NULL COMMENT 'water gas elec',
+  `METER_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `YEAR_INIT_VAL` DOUBLE DEFAULT NULL,
+  `LAST_MONTH_VAL` DOUBLE DEFAULT NULL,
+  `CUR_VAL` DOUBLE DEFAULT NULL,
+  `MONTH` INT(10) DEFAULT NULL COMMENT '计费月份',
+  `STEP` INT(5) DEFAULT NULL COMMENT '阶梯计价',
+  `MONEY` DOUBLE DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `METER_NUMBER` (`METER_NUMBER`),
+  KEY `ROOM_ID` (`ROOM_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+/*Data for the table `room_meter` */
+
+INSERT  INTO `room_meter`(`ID`,`ROOM_ID`,`TYPE`,`METER_NUMBER`,`YEAR_INIT_VAL`,`LAST_MONTH_VAL`,`CUR_VAL`,`MONTH`,`STEP`,`MONEY`) VALUES 
+(1,1,'water',NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(2,2,'gas',NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(3,3,'elec',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+
+/*Table structure for table `room_pic` */
+
+DROP TABLE IF EXISTS `room_pic`;
+
+CREATE TABLE `room_pic` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_ID` INT(11) DEFAULT NULL,
+  `TYPE` INT(10) UNSIGNED DEFAULT NULL,
+  `CTIME` DATE DEFAULT NULL,
+  `NAME` VARCHAR(64) DEFAULT NULL,
+  `TAG` VARCHAR(64) DEFAULT NULL,
+  `PATH` VARCHAR(256) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ROOM_ID` (`ROOM_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+/*Data for the table `room_pic` */
+
+INSERT  INTO `room_pic`(`ID`,`ROOM_ID`,`TYPE`,`CTIME`,`NAME`,`TAG`,`PATH`) VALUES 
+(2,116,1,NULL,'1','1','/resources/room_pic/1.jpg'),
+(3,117,1,NULL,'1','1','/resources/room_pic/DSC_0035.JPG'),
+(4,1,1,NULL,'1','1','/resources/room_pic/IMG_1080.JPG'),
+(5,1,1,NULL,'1','1','/resources/room_pic/IMG_1042.JPG');
+
+/*Table structure for table `room_state` */
+
+DROP TABLE IF EXISTS `room_state`;
+
+CREATE TABLE `room_state` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUMBER` VARCHAR(64) NOT NULL,
+  `CUS_ID` INT(11) DEFAULT NULL,
+  `CUS_NAME` VARCHAR(64) DEFAULT NULL,
+  `STATE` INT(11) DEFAULT '0' COMMENT '0表示无人入住 1表示已有人入住 2房间非管理 3 其他使用',
+  `ROOM_ID` INT(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ROOM_NUMBER` (`ROOM_NUMBER`),
+  UNIQUE KEY `ROOM_ID` (`ROOM_ID`)
+) ENGINE=INNODB AUTO_INCREMENT=275 DEFAULT CHARSET=utf8;
+
+/*Data for the table `room_state` */
+
+INSERT  INTO `room_state`(`ID`,`ROOM_NUMBER`,`CUS_ID`,`CUS_NAME`,`STATE`,`ROOM_ID`) VALUES 
+(1,'W2-1',3,'Tom',1,1),
+(2,'W2-2',124,'Ada',1,2),
+(3,'W2-3',2333,'Joe',1,3),
+(4,'W3-1',NULL,NULL,0,4),
+(5,'W3-2',NULL,NULL,0,5),
+(6,'W3-3',NULL,NULL,0,6),
+(7,'W3-5',NULL,NULL,0,7),
+(8,'W4-1',NULL,NULL,0,8);
+
+/*Table structure for table `shoes_polishing` */
+
+DROP TABLE IF EXISTS `shoes_polishing`;
+
+CREATE TABLE `shoes_polishing` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(11) DEFAULT NULL,
+  `COUNT` INT(11) DEFAULT NULL,
+  `TOTAL_PRICE` DOUBLE DEFAULT NULL,
+  `PAY_MODE` TINYINT(3) DEFAULT NULL COMMENT '支付方式：现金0 月结1',
+  `COMMENT` VARCHAR(64) DEFAULT NULL,
+  `STAFF_ID` INT(11) DEFAULT NULL,
+  `STAFF_NAME` VARCHAR(64) DEFAULT NULL,
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+/*Data for the table `shoes_polishing` */
+
+INSERT  INTO `shoes_polishing`(`ID`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`COUNT`,`TOTAL_PRICE`,`PAY_MODE`,`COMMENT`,`STAFF_ID`,`STAFF_NAME`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,'W33-2',54,'Ada',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-13 00:00:00'),
+(3,'W11-1',49,'Ada5',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(4,'W33-2',54,'Ada',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(5,'W11-1',49,'Ada5',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(6,'w33-3',105,'Ada',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(7,'w33-3',105,'Ada',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(8,'w33-3',105,'Ada',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(9,'w33-3',105,'Ada',0,0,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38'),
+(10,'w33-3',105,'Ada',0,20,0,'无',0,'null','2018-06-01 00:00:00','2018-06-11 21:55:28','2018-06-14 21:55:38');
+
+/*Table structure for table `shuttle_bus` */
+
+DROP TABLE IF EXISTS `shuttle_bus`;
+
+CREATE TABLE `shuttle_bus` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `YEAR` INT(11) DEFAULT NULL,
+  `MONTH` INT(11) DEFAULT NULL,
+  `ROOM_NUM` VARCHAR(64) DEFAULT NULL,
+  `GUEST_ID` INT(11) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `OTHER_PEOPLE` VARCHAR(100) DEFAULT '',
+  `FIRST` INT(11) DEFAULT '0',
+  `SECOND` INT(11) DEFAULT '0',
+  `THIRD` INT(11) DEFAULT '0',
+  `FOURTH` INT(11) DEFAULT '0',
+  `FIFTH` INT(11) DEFAULT '0',
+  `SIXTH` INT(11) DEFAULT '0',
+  `SEVENTH` INT(11) DEFAULT '0',
+  `EIGHTH` INT(11) DEFAULT '0',
+  `NINTH` INT(11) DEFAULT '0',
+  `TENTH` INT(11) DEFAULT '0',
+  `ELEVENTH` INT(11) DEFAULT '0',
+  `TWELFTH` INT(11) DEFAULT '0',
+  `THIRTEENTH` INT(11) DEFAULT '0',
+  `FOURTEENTH` INT(11) DEFAULT '0',
+  `FIFTEENTH` INT(11) DEFAULT '0',
+  `SIXTEENTH` INT(11) DEFAULT '0',
+  `SEVENTEENTH` INT(11) DEFAULT '0',
+  `EIGHTEENTH` INT(11) DEFAULT '0',
+  `NINETEENTH` INT(11) DEFAULT '0',
+  `TWENTIETH` INT(11) DEFAULT '0',
+  `TWENTY_FIRST` INT(11) DEFAULT '0',
+  `TWENTY_SECOND` INT(11) DEFAULT '0',
+  `TWENTY_THIRD` INT(11) DEFAULT '0',
+  `TWENTY_FOURTH` INT(11) DEFAULT '0',
+  `TWENTY_FIFTH` INT(11) DEFAULT '0',
+  `TWENTY_SIXTH` INT(11) DEFAULT '0',
+  `TWENTY_SEVENTH` INT(11) DEFAULT '0',
+  `TWENTY_EIGHTH` INT(11) DEFAULT '0',
+  `TWENTY_NINTH` INT(11) DEFAULT '0',
+  `THIRTIETH` INT(11) DEFAULT '0',
+  `THIRTY_FIRST` INT(11) DEFAULT '0',
+  `DAYS` INT(11) DEFAULT '0',
+  `TOTAL` INT(11) DEFAULT '0',
+  `OCCUR_TIME` DATETIME DEFAULT NULL,
+  `IMPORT_TIME` DATETIME DEFAULT NULL,
+  `EDIT_TIME` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `YEAR` (`YEAR`,`MONTH`,`GUEST_ID`),
+  KEY `ROOM_NUM` (`ROOM_NUM`)
+) ENGINE=INNODB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+
+/*Data for the table `shuttle_bus` */
+
+INSERT  INTO `shuttle_bus`(`ID`,`YEAR`,`MONTH`,`ROOM_NUM`,`GUEST_ID`,`GUEST_NAME`,`OTHER_PEOPLE`,`FIRST`,`SECOND`,`THIRD`,`FOURTH`,`FIFTH`,`SIXTH`,`SEVENTH`,`EIGHTH`,`NINTH`,`TENTH`,`ELEVENTH`,`TWELFTH`,`THIRTEENTH`,`FOURTEENTH`,`FIFTEENTH`,`SIXTEENTH`,`SEVENTEENTH`,`EIGHTEENTH`,`NINETEENTH`,`TWENTIETH`,`TWENTY_FIRST`,`TWENTY_SECOND`,`TWENTY_THIRD`,`TWENTY_FOURTH`,`TWENTY_FIFTH`,`TWENTY_SIXTH`,`TWENTY_SEVENTH`,`TWENTY_EIGHTH`,`TWENTY_NINTH`,`THIRTIETH`,`THIRTY_FIRST`,`DAYS`,`TOTAL`,`OCCUR_TIME`,`IMPORT_TIME`,`EDIT_TIME`) VALUES 
+(1,2017,3,'W32-1',2,'Joe','Zoe',0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,9,'2017-04-12 12:38:49','2017-05-15 12:38:53','2017-06-28 12:38:55'),
+(29,2016,12,'W7-3',50,'测试','客人1，客人2，客人3',1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,1,0,1,0,0,8,80,'2016-12-01 12:00:00','2017-04-25 12:39:25','2017-05-14 14:50:32'),
+(44,2017,5,'W11-1',49,'Ken','Bruno Mars, Alexa Keys，aa',0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,5,50,'2017-05-01 00:00:01','2017-05-16 11:52:51','2017-05-16 11:53:38');
+
+/*Table structure for table `sources` */
+
+DROP TABLE IF EXISTS `sources`;
+
+CREATE TABLE `sources` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ROOM_NUMBER` VARCHAR(64) DEFAULT NULL,
+  `GUEST_NAME` VARCHAR(64) DEFAULT NULL,
+  `TYPE` VARCHAR(11) DEFAULT NULL COMMENT '水费 电费 燃气费',
+  `METER` VARCHAR(64) DEFAULT NULL,
+  `CUR_MONTH_VAL` DOUBLE DEFAULT NULL,
+  `MONEY` DOUBLE DEFAULT NULL,
+  `UPDATE_TIME` DATETIME DEFAULT NULL COMMENT '更新日期',
+  `READING_TIME` DATETIME DEFAULT NULL COMMENT '抄表日期',
+  `MONTH` INT(10) DEFAULT NULL COMMENT '月份',
+  `SYS_STATE` INT(11) DEFAULT '1' COMMENT '0 表示历史记录 1表示现在记录',
+  `LOG` VARCHAR(10) DEFAULT NULL COMMENT '入住 退租 计费',
+  PRIMARY KEY (`ID`),
+  KEY `ROOM_NUMBER` (`ROOM_NUMBER`)
+) ENGINE=INNODB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+/*Data for the table `sources` */
+
+INSERT  INTO `sources`(`ID`,`ROOM_NUMBER`,`GUEST_NAME`,`TYPE`,`METER`,`CUR_MONTH_VAL`,`MONEY`,`UPDATE_TIME`,`READING_TIME`,`MONTH`,`SYS_STATE`,`LOG`) VALUES 
+(2,'W7-3','Ada','water','W7-3',45,18,'2017-12-06 00:00:00','2018-06-07 00:00:00',11,1,'入住'),
+(3,'W2-1','Tom','water','W2-1',34,13.600000000000001,'2014-12-06 00:00:00','2018-06-07 00:00:00',11,1,'入住'),
+(4,'W2-1','Tom','water','W2-1',34,13.600000000000001,'2017-12-06 00:00:00','2018-06-07 00:00:00',10,1,'计费'),
+(11,'W2-1','Tom','elec','W2-1',13,5.2,'2017-12-16 00:00:00','2018-06-07 00:00:00',11,1,'计费'),
+(12,'W2-1','Tom','water','W2-1',46,0.4,'2017-12-16 00:00:00','2018-06-07 00:00:00',9,1,'计费'),
+(13,'W2-1','Tom','water','W2-1',47,0.4,'2017-12-16 00:00:00','2018-06-15 00:00:00',9,1,'计费'),
+(21,'W2-2','Ada','elec','W2-2',2,0.8,'2017-12-17 00:00:00','2018-06-15 00:00:00',11,1,'计费'),
+(26,'W2-1','Tom','gas','1',2,0.6,'2017-12-17 00:00:00','2018-06-15 00:00:00',11,1,'计费'),
+(27,'W11-3','Ada','water','W11-3',2,0.8,'2017-12-17 00:00:00','2018-06-15 00:00:00',11,1,'计费');
+
+/*Table structure for table `staff` */
+
+DROP TABLE IF EXISTS `staff`;
+
+CREATE TABLE `staff` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(64) DEFAULT '' COMMENT '考虑职员名称的唯一性约束问题！',
+  `DUTY` VARCHAR(64) DEFAULT NULL COMMENT '职务',
+  `DEPART` VARCHAR(64) DEFAULT NULL COMMENT '部门',
+  `JOIN_DATE` DATE DEFAULT NULL COMMENT '加入日期',
+  `STATE` TINYINT(3) DEFAULT NULL COMMENT '1 在职 0 已解雇',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `staff` */
+
+INSERT  INTO `staff`(`ID`,`NAME`,`DUTY`,`DEPART`,`JOIN_DATE`,`STATE`) VALUES 
+(1,'ken','点餐','客服部','2017-05-11',1),
+(2,'lucy','代购','客服部','2017-05-25',1),
+(3,'andy','点餐','客服部','2017-05-25',1),
+(4,'andrew','代购','客服部','2017-05-25',1);
+
+/*Table structure for table `system_reminder` */
+
+DROP TABLE IF EXISTS `system_reminder`;
+
+CREATE TABLE `system_reminder` (
+  `ID` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `USER_ID` INT(11) DEFAULT NULL,
+  `TITLE` VARCHAR(200) DEFAULT NULL,
+  `CONTENT` VARCHAR(500) DEFAULT NULL,
+  `REMIND_DATE` DATE DEFAULT NULL,
+  `STATE` VARCHAR(10) DEFAULT NULL COMMENT '完成、未完成',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
+
+/*Data for the table `system_reminder` */
+
+INSERT  INTO `system_reminder`(`ID`,`USER_ID`,`TITLE`,`CONTENT`,`REMIND_DATE`,`STATE`) VALUES 
+(91,10,'1','1','2017-06-22','未完成'),
+(92,10,'1','1','2018-06-22','未完成'),
+(93,10,'1','1','2019-06-22','未完成');
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `USERNAME` VARCHAR(64) NOT NULL,
+  `PASSWD` VARCHAR(64) NOT NULL,
+  `NAME` VARCHAR(64) NOT NULL,
+  `NUM` VARCHAR(64) DEFAULT NULL,
+  `DEPART` VARCHAR(64) DEFAULT NULL,
+  `ROLE` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `AUTH` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `CTIME` DATE DEFAULT NULL,
+  `LTIME` DATE DEFAULT NULL,
+  `STATE` INT(10) UNSIGNED NOT NULL DEFAULT '1',
+  `RESET_PASSWD` TINYINT(3) DEFAULT '0' COMMENT '是否修改过密码（初始为0）',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `USERNAME` (`USERNAME`)
+) ENGINE=INNODB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+/*Data for the table `user` */
+
+INSERT  INTO `user`(`ID`,`USERNAME`,`PASSWD`,`NAME`,`NUM`,`DEPART`,`ROLE`,`AUTH`,`CTIME`,`LTIME`,`STATE`,`RESET_PASSWD`) VALUES 
+(1,'财务部001','e10adc3949ba59abbe56e057f20f883e','BUPTADMIN','SYS_002','财务部',0,1835008,'2018-05-24','2018-06-28',1,1),
+(2,'客服部001','e10adc3949ba59abbe56e057f20f883e','test','TEST_001','客服部',4,786431,'2018-05-30','2018-06-28',1,1),
+(10,'财务部002','e10adc3949ba59abbe56e057f20f883e','test','test','财务部',4,262143,'2018-05-30','2018-06-28',1,1),
+(11,'客房部001','e10adc3949ba59abbe56e057f20f883e','test','TEST_','客房部',4,262143,'2018-05-30','2018-06-28',1,0),
+(12,'客房部002','e10adc3949ba59abbe56e057f20f883e','test','TEST_','客房部',0,1835008,'2018-05-30','2017-03-29',1,0);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

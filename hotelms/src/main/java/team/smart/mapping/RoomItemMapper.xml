@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.smart.dao.RoomItemMapper">
+	<resultMap id="BaseResultMap" type="team.smart.model.RoomItem">
+		<id column="ID" property="ID" jdbcType="INTEGER" />
+		<result column="ROOM_NUM" property="ROOM_NUM" jdbcType="VARCHAR" />
+		<result column="FAC_ID" property="FAC_ID" jdbcType="INTEGER" />
+		<result column="TAG" property="TAG" jdbcType="VARCHAR" />
+		<result column="ALLOCATE_TYPE" property="ALLOCATE_TYPE"
+			jdbcType="VARCHAR" />
+		<result column="STATE" property="STATE" jdbcType="VARCHAR" />
+		<result column="BORROW_DATE" property="BORROW_DATE" jdbcType="DATE" />
+		<result column="RETURN_DATE" property="RETURN_DATE" jdbcType="DATE" />
+		<result column="MAINTAIN_DURATION" property="MAINTAIN_DURATION"
+			jdbcType="INTEGER" />
+		<result column="COMM" property="COMM" jdbcType="VARCHAR" />
+		<result column="TYPE" property="TYPE" jdbcType="VARCHAR" />
+		<result column="CAT" property="CAT" jdbcType="VARCHAR" />
+		<result column="BRAND" property="BRAND" jdbcType="VARCHAR" />
+		<result column="NAME" property="NAME" jdbcType="VARCHAR" />
+		<result column="OWNER" property="OWNER" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ROOM_NUM, FAC_ID, TAG, ALLOCATE_TYPE, STATE, BORROW_DATE,
+		RETURN_DATE, MAINTAIN_DURATION,
+		COMM
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from room_item
+		where ID = #{ID,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from room_item
+		where ID = #{ID,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="team.smart.model.RoomItem">
+		insert into room_item (ID, ROOM_NUM, FAC_ID,
+		TAG, ALLOCATE_TYPE, STATE,
+		BORROW_DATE, RETURN_DATE, MAINTAIN_DURATION,
+		COMM)
+		values (#{ID,jdbcType=INTEGER}, #{ROOM_NUM,jdbcType=VARCHAR},
+		#{FAC_ID,jdbcType=INTEGER},
+		#{TAG,jdbcType=VARCHAR}, #{ALLOCATE_TYPE,jdbcType=VARCHAR}, #{STATE,jdbcType=VARCHAR},
+		#{BORROW_DATE,jdbcType=DATE}, #{RETURN_DATE,jdbcType=DATE},
+		#{MAINTAIN_DURATION,jdbcType=INTEGER},
+		#{COMM,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="team.smart.model.RoomItem">
+		insert into room_item
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				ID,
+			</if>
+			<if test="ROOM_NUM != null">
+				ROOM_NUM,
+			</if>
+			<if test="FAC_ID != null">
+				FAC_ID,
+			</if>
+			<if test="TAG != null">
+				TAG,
+			</if>
+			<if test="ALLOCATE_TYPE != null">
+				ALLOCATE_TYPE,
+			</if>
+			<if test="STATE != null">
+				STATE,
+			</if>
+			<if test="BORROW_DATE != null">
+				BORROW_DATE,
+			</if>
+			<if test="RETURN_DATE != null">
+				RETURN_DATE,
+			</if>
+			<if test="MAINTAIN_DURATION != null">
+				MAINTAIN_DURATION,
+			</if>
+			<if test="COMM != null">
+				COMM,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				#{ID,jdbcType=INTEGER},
+			</if>
+			<if test="ROOM_NUM != null">
+				#{ROOM_NUM,jdbcType=VARCHAR},
+			</if>
+			<if test="FAC_ID != null">
+				#{FAC_ID,jdbcType=INTEGER},
+			</if>
+			<if test="TAG != null">
+				#{TAG,jdbcType=VARCHAR},
+			</if>
+			<if test="ALLOCATE_TYPE != null">
+				#{ALLOCATE_TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="STATE != null">
+				#{STATE,jdbcType=VARCHAR},
+			</if>
+			<if test="BORROW_DATE != null">
+				#{BORROW_DATE,jdbcType=DATE},
+			</if>
+			<if test="RETURN_DATE != null">
+				#{RETURN_DATE,jdbcType=DATE},
+			</if>
+			<if test="MAINTAIN_DURATION != null">
+				#{MAINTAIN_DURATION,jdbcType=INTEGER},
+			</if>
+			<if test="COMM != null">
+				#{COMM,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="team.smart.model.RoomItem">
+		update room_item
+		<set>
+			<if test="ROOM_NUM != null">
+				ROOM_NUM = #{ROOM_NUM,jdbcType=VARCHAR},
+			</if>
+			<if test="FAC_ID != null">
+				FAC_ID = #{FAC_ID,jdbcType=INTEGER},
+			</if>
+			<if test="TAG != null">
+				TAG = #{TAG,jdbcType=VARCHAR},
+			</if>
+			<if test="ALLOCATE_TYPE != null">
+				ALLOCATE_TYPE = #{ALLOCATE_TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="STATE != null">
+				STATE = #{STATE,jdbcType=VARCHAR},
+			</if>
+			<if test="BORROW_DATE != null">
+				BORROW_DATE = #{BORROW_DATE,jdbcType=DATE},
+			</if>
+			<if test="RETURN_DATE != null">
+				RETURN_DATE = #{RETURN_DATE,jdbcType=DATE},
+			</if>
+			<if test="MAINTAIN_DURATION != null">
+				MAINTAIN_DURATION = #{MAINTAIN_DURATION,jdbcType=INTEGER},
+			</if>
+			<if test="COMM != null">
+				COMM = #{COMM,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{ID,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="team.smart.model.RoomItem">
+		update room_item
+		set ROOM_NUM = #{ROOM_NUM,jdbcType=VARCHAR},
+		FAC_ID = #{FAC_ID,jdbcType=INTEGER},
+		TAG = #{TAG,jdbcType=VARCHAR},
+		ALLOCATE_TYPE = #{ALLOCATE_TYPE,jdbcType=VARCHAR},
+		STATE = #{STATE,jdbcType=VARCHAR},
+		BORROW_DATE = #{BORROW_DATE,jdbcType=DATE},
+		RETURN_DATE = #{RETURN_DATE,jdbcType=DATE},
+		MAINTAIN_DURATION = #{MAINTAIN_DURATION,jdbcType=INTEGER},
+		COMM = #{COMM,jdbcType=VARCHAR}
+		where ID = #{ID,jdbcType=INTEGER}
+	</update>
+	<select id="getItems" resultMap="BaseResultMap" parameterType="map">
+  	<![CDATA[
+  	select * from room_item where ID = #{ROOM_ID} and TYPE = #{TYPE} limit #{ST}, #{EACH}
+    ]]>
+	</select>
+	<select id="getItemsByType" resultMap="BaseResultMap"
+		parameterType="map">
+  	<![CDATA[
+  	select * from room_item where TYPE = #{TYPE} limit #{ST}, #{EACH}
+    ]]>
+	</select>
+	<select id="getItemsByRoom" resultMap="BaseResultMap"
+		parameterType="map">
+  	<![CDATA[
+  	select * from room_item where ID = #{ROOM_ID} limit #{ST}, #{EACH}
+    ]]>
+	</select>
+	<select id="getItemsByItemID" resultMap="BaseResultMap"
+		parameterType="map">
+  	<![CDATA[
+  	select * from room_item where FAC_ID = #{FAC_ID} limit #{ST}, #{EACH}
+    ]]>
+	</select>
+	<select id="getAllItems" resultMap="BaseResultMap"
+		parameterType="map">
+  	<![CDATA[
+  	select * from room_item limit #{ST}, #{EACH}
+    ]]>
+	</select>
+	<select id="getTotal" resultType="java.lang.Integer"
+		parameterType="map">
+  	<![CDATA[
+  	select count(*) from room_item where ID = #{ROOM_ID} and TYPE = #{TYPE}
+    ]]>
+	</select>
+	<select id="getTotalByType" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+  	<![CDATA[
+  	select count(*) from room_item where TYPE = #{TYPE,jdbcType=VARCHAR}
+    ]]>
+	</select>
+	<select id="getTotalByRoom" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+  	<![CDATA[
+  	select count(*) from room_item where ID = #{RID,jdbcType=INTEGER}
+    ]]>
+	</select>
+	<select id="getAllTotal" resultType="java.lang.Integer">
+  	<![CDATA[
+  	select count(*) from room_item
+    ]]>
+	</select>
+	<select id="getTotalByItemID" resultType="java.lang.Integer">
+  	<![CDATA[
+  	select count(*) from room_item where FAC_ID = #{FAC_ID,jdbcType=INTEGER}
+    ]]>
+	</select>
+
+	<select id="selectByTag" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+        <![CDATA[
+  	select * from room_item where TAG = #{TAG,jdbcType=VARCHAR}
+    ]]>
+	</select>
+
+
+	<select id="selectTotalItemsByRoomNum_Type" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*)
+		from room_item left join fac_sta on room_item.FAC_ID = fac_sta.ID
+		where fac_sta.TYPE = #{TYPE}
+		and room_item.ROOM_NUM like CONCAT('%', #{ROOM_NUM},'%')
+	</select>
+
+	<select id="selectItemsByRoomNum_Type" resultMap="BaseResultMap"
+		parameterType="map">
+		select room_item.ID as ID,
+		room_item.ROOM_NUM as ROOM_NUM,
+		room_item.FAC_ID as FAC_ID,
+		room_item.TAG as TAG,
+		room_item.ALLOCATE_TYPE as ALLOCATE_TYPE,
+		room_item.STATE as STATE,
+		room_item.BORROW_DATE as BORROW_DATE,
+		room_item.RETURN_DATE as RETURN_DATE,
+		room_item.MAINTAIN_DURATION as MAINTAIN_DURATION,
+		room_item.COMM as COMM,
+		fac_sta.TYPE as TYPE,
+		fac_sta.CAT as CAT,
+		fac_sta.BRAND as BRAND,
+		fac_sta.NAME as NAME,
+		fac_sta.OWNER as OWNER
+		from room_item left join fac_sta on room_item.FAC_ID = fac_sta.ID
+		where fac_sta.TYPE = #{TYPE}
+		and room_item.ROOM_NUM like CONCAT('%', #{ROOM_NUM},'%')
+		order by room_item.ID
+		limit #{START_PAGE}, #{EACH_PAGE};
+	</select>
+
+	<select id="selectAllItemsByRoomNum_Type" resultMap="BaseResultMap"
+		parameterType="map">
+		select room_item.ID as ID,
+		room_item.ROOM_NUM as ROOM_NUM,
+		room_item.FAC_ID as FAC_ID,
+		room_item.TAG as TAG,
+		room_item.ALLOCATE_TYPE as ALLOCATE_TYPE,
+		room_item.STATE as STATE,
+		room_item.BORROW_DATE as BORROW_DATE,
+		room_item.RETURN_DATE as RETURN_DATE,
+		room_item.MAINTAIN_DURATION as MAINTAIN_DURATION,
+		room_item.COMM as COMM,
+		fac_sta.TYPE as TYPE,
+		fac_sta.CAT as CAT,
+		fac_sta.BRAND as BRAND,
+		fac_sta.NAME as NAME,
+		fac_sta.OWNER as OWNER
+		from room_item left join fac_sta on room_item.FAC_ID = fac_sta.ID
+		where fac_sta.TYPE = #{TYPE}
+		and room_item.ROOM_NUM like CONCAT('%', #{ROOM_NUM},'%')
+		order by room_item.ID
+	</select>
+
+</mapper>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.smart.dao.RoomMapper">
+	<resultMap id="BaseResultMap" type="team.smart.model.Room">
+		<id column="ID" property="ID" jdbcType="INTEGER" />
+		<result column="ROOM_NUMBER" property="ROOM_NUMBER" jdbcType="VARCHAR" />
+		<result column="TYPE" property="TYPE" jdbcType="VARCHAR" />
+		<result column="AREA" property="AREA" jdbcType="DOUBLE" />
+		<result column="RENT" property="RENT" jdbcType="INTEGER" />
+		<result column="STATE" property="STATE" jdbcType="INTEGER" />
+		<result column="COMM" property="COMM" jdbcType="VARCHAR" />
+		<result column="OWNER_NAME" property="OWNER_NAME" jdbcType="VARCHAR" />
+		<result column="RECEIPT_TIME" property="RECEIPT_TIME" jdbcType="TIMESTAMP" />
+		<result column="REFUND_TIME" property="REFUND_TIME" jdbcType="TIMESTAMP" />
+		<result column="REPLACE_ROOM" property="REPLACE_ROOM" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ROOM_NUMBER, TYPE, AREA, RENT, STATE, COMM, OWNER_NAME, RECEIPT_TIME,
+		REFUND_TIME,
+		REPLACE_ROOM
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where ID = #{ID,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from room
+		where ID = #{ID,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="team.smart.model.Room">
+		insert into room (ID, ROOM_NUMBER, TYPE,
+		AREA, RENT, STATE, COMM,
+		OWNER_NAME, RECEIPT_TIME, REFUND_TIME,
+		REPLACE_ROOM)
+		values (#{ID,jdbcType=INTEGER}, #{ROOM_NUMBER,jdbcType=VARCHAR},
+		#{TYPE,jdbcType=VARCHAR},
+		#{AREA,jdbcType=DOUBLE}, #{RENT,jdbcType=INTEGER}, #{STATE,jdbcType=INTEGER},
+		#{COMM,jdbcType=VARCHAR},
+		#{OWNER_NAME,jdbcType=VARCHAR}, #{RECEIPT_TIME,jdbcType=TIMESTAMP},
+		#{REFUND_TIME,jdbcType=TIMESTAMP},
+		#{REPLACE_ROOM,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="team.smart.model.Room">
+		insert into room
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				ID,
+			</if>
+			<if test="ROOM_NUMBER != null">
+				ROOM_NUMBER,
+			</if>
+			<if test="TYPE != null">
+				TYPE,
+			</if>
+			<if test="AREA != null">
+				AREA,
+			</if>
+			<if test="RENT != null">
+				RENT,
+			</if>
+			<if test="STATE != null">
+				STATE,
+			</if>
+			<if test="COMM != null">
+				COMM,
+			</if>
+			<if test="OWNER_NAME != null">
+				OWNER_NAME,
+			</if>
+			<if test="RECEIPT_TIME != null">
+				RECEIPT_TIME,
+			</if>
+			<if test="REFUND_TIME != null">
+				REFUND_TIME,
+			</if>
+			<if test="REPLACE_ROOM != null">
+				REPLACE_ROOM,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ID != null">
+				#{ID,jdbcType=INTEGER},
+			</if>
+			<if test="ROOM_NUMBER != null">
+				#{ROOM_NUMBER,jdbcType=VARCHAR},
+			</if>
+			<if test="TYPE != null">
+				#{TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="AREA != null">
+				#{AREA,jdbcType=DOUBLE},
+			</if>
+			<if test="RENT != null">
+				#{RENT,jdbcType=INTEGER},
+			</if>
+			<if test="STATE != null">
+				#{STATE,jdbcType=INTEGER},
+			</if>
+			<if test="COMM != null">
+				#{COMM,jdbcType=VARCHAR},
+			</if>
+			<if test="OWNER_NAME != null">
+				#{OWNER_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="RECEIPT_TIME != null">
+				#{RECEIPT_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="REFUND_TIME != null">
+				#{REFUND_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="REPLACE_ROOM != null">
+				#{REPLACE_ROOM,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="team.smart.model.Room">
+		update room
+		<set>
+			<if test="ROOM_NUMBER != null">
+				ROOM_NUMBER = #{ROOM_NUMBER,jdbcType=VARCHAR},
+			</if>
+			<if test="TYPE != null">
+				TYPE = #{TYPE,jdbcType=VARCHAR},
+			</if>
+			<if test="AREA != null">
+				AREA = #{AREA,jdbcType=DOUBLE},
+			</if>
+			<if test="RENT != null">
+				RENT = #{RENT,jdbcType=INTEGER},
+			</if>
+			<if test="STATE != null">
+				STATE = #{STATE,jdbcType=INTEGER},
+			</if>
+			<if test="COMM != null">
+				COMM = #{COMM,jdbcType=VARCHAR},
+			</if>
+			<if test="OWNER_NAME != null">
+				OWNER_NAME = #{OWNER_NAME,jdbcType=VARCHAR},
+			</if>
+			<if test="RECEIPT_TIME != null">
+				RECEIPT_TIME = #{RECEIPT_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="REFUND_TIME != null">
+				REFUND_TIME = #{REFUND_TIME,jdbcType=TIMESTAMP},
+			</if>
+			<if test="REPLACE_ROOM != null">
+				REPLACE_ROOM = #{REPLACE_ROOM,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{ID,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="team.smart.model.Room">
+		update room
+		set ROOM_NUMBER = #{ROOM_NUMBER,jdbcType=VARCHAR},
+		TYPE = #{TYPE,jdbcType=VARCHAR},
+		AREA = #{AREA,jdbcType=DOUBLE},
+		RENT = #{RENT,jdbcType=INTEGER},
+		STATE = #{STATE,jdbcType=INTEGER},
+		COMM = #{COMM,jdbcType=VARCHAR},
+		OWNER_NAME = #{OWNER_NAME,jdbcType=VARCHAR},
+		RECEIPT_TIME = #{RECEIPT_TIME,jdbcType=TIMESTAMP},
+		REFUND_TIME = #{REFUND_TIME,jdbcType=TIMESTAMP},
+		REPLACE_ROOM = #{REPLACE_ROOM,jdbcType=VARCHAR}
+		where ID = #{ID,jdbcType=INTEGER}
+	</update>
+	<select id="selectByNumber" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where ROOM_NUMBER = #{ROOM_NUMBER,jdbcType=VARCHAR}
+	</select>
+	<select id="getRoomByType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where TYPE = #{ROOM_TYPE,jdbcType=VARCHAR}
+	</select>
+	<select id="getRoomByState" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where STATE = #{STATE,jdbcType=INTEGER}
+	</select>
+	<select id="getAllRoom" resultMap="BaseResultMap">
+    <![CDATA[
+  	select * from room
+  	]]>
+	</select>
+	<select id="totalRow" resultType="java.lang.Integer">
+  	<![CDATA[
+  	select count(*) from room
+  	]]>
+	</select>
+	<select id="getAllTypeNotNullRoom" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where TYPE IS NOT NULL
+	</select>
+	<select id="totalRoom" resultType="java.lang.Integer"
+		parameterType="map">
+		select count(*)
+		from room
+		where ROOM_NUMBER like concat('%',#{Room_Number},'%') and TYPE like
+		concat('%',#{Type},'%')
+	</select>
+	<select id="getRoomBySearch" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where ROOM_NUMBER like concat('%',#{Room_Number},'%') and TYPE like
+		concat('%',#{Type},'%')
+		order by ID
+		limit #{ST}, #{EACH}
+	</select>
+	<select id="getAllRoomBySearch" resultMap="BaseResultMap"
+		parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from room
+		where ROOM_NUMBER like concat('%',#{Room_Number},'%') and TYPE like
+		concat('%',#{TYPE},'%')
+	</select>
+</mapper>
